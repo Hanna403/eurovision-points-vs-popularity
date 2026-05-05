@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eurovision: Points vs. Popularity · Group 18</title>
+<meta name="description" content="A 70-year look at whether the Eurovision scoreboard knows what a hit is, and what happens when we ask the audience instead of the jury." />
+<meta name="author" content="Arnar Thor Bjornsson & Hanna Margrét Pétursdóttir" />
+
+<!-- Open Graph (link previews on Slack, Twitter, Facebook, etc.) -->
+<meta property="og:title" content="Eurovision: Points vs. Popularity" />
+<meta property="og:description" content="Did the jury rob ABBA? A 70-year look at whether the Eurovision scoreboard predicts real-world popularity. Group 18 · DTU socialdata2026." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/J_TRIANGULATED.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Eurovision: Points vs. Popularity" />
+<meta name="twitter:description" content="The jury writes the result. The audience writes the legacy." />
+<meta name="twitter:image" content="assets/J_TRIANGULATED.png" />
+
+<!-- Favicon (inline SVG, pink microphone) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230B1B3D'/%3E%3Ctext y='75' x='50' text-anchor='middle' font-size='66'%3E%F0%9F%8E%A4%3C/text%3E%3C/svg%3E" />
+
+<!-- Plotly for the interactive viz -->
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+
+<!-- Web fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+ :root {
+ --navy: #0B1B3D;
+ --ink: #0B3D91;
+ --magenta: #E6007E;
+ --gold: #F2C94C;
+ --soft: #D6E0F2;
+ --muted: #9AA5B1;
+ --paper: #FFFFFF;
+ --rule: #E6E9F0;
+ --max: 980px;
+ }
+
+ * { box-sizing: border-box; }
+ html { scroll-behavior: smooth; }
+ body {
+ margin: 0;
+ font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+ color: #1A2B4A;
+ background: var(--paper);
+ line-height: 1.6;
+ font-size: 17px;
+ }
+
+ /* Hero */
+ .hero {
+ background: linear-gradient(180deg, var(--navy) 0%, #14275A 100%);
+ color: white;
+ padding: 6rem 1.5rem 5rem;
+ text-align: center;
+ }
+ .hero .kicker {
+ color: var(--magenta); font-family: 'Inter'; font-weight: 600;
+ letter-spacing: 0.18em; font-size: 0.85rem; text-transform: uppercase;
+ margin-bottom: 1.5rem;
+ }
+ .hero h1 {
+ font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700;
+ font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.1;
+ margin: 0 auto 1.2rem; max-width: 780px;
+ }
+ .hero h1 em { color: var(--gold); font-style: italic; }
+ .hero p.dek {
+ color: var(--soft); max-width: 600px; margin: 0 auto; font-size: 1.15rem;
+ }
+ .hero .meta {
+ margin-top: 3rem; color: var(--muted); font-size: 0.85rem; font-style: italic;
+ }
+
+ /* Cold open. Moldova Run Away */
+ .cold-open {
+ background: var(--navy); color: white; padding: 5rem 1.5rem;
+ }
+ .cold-open .grid {
+ max-width: var(--max); margin: 0 auto;
+ display: grid; grid-template-columns: 1fr 1px 1fr;
+ align-items: center; gap: 3rem;
+ }
+ .cold-open .divider {
+ background: rgba(255,255,255,0.15); height: 220px; align-self: center;
+ }
+ .cold-open .left .year {
+ font-family: 'Inter'; font-weight: 700; color: var(--magenta);
+ letter-spacing: 0.4em; margin-bottom: 1rem; font-size: 1.4rem;
+ }
+ .cold-open .left h2 {
+ font-family: 'Cormorant Garamond', serif; font-size: 3.2rem;
+ margin: 0 0 0.4rem; line-height: 1.05;
+ }
+ .cold-open .left .song {
+ font-style: italic; font-size: 1.6rem; color: var(--soft); margin-bottom: 1rem;
+ }
+ .cold-open .left .verdict {
+ color: var(--soft);
+ border-left: 3px solid var(--magenta); padding-left: 1rem;
+ font-style: italic; max-width: 360px;
+ }
+ .cold-open .right { text-align: center; }
+ .cold-open .right .stat {
+ font-family: 'Cormorant Garamond', serif; color: var(--gold);
+ font-weight: 700; font-size: clamp(4rem, 9vw, 6.5rem); line-height: 0.95;
+ }
+ .cold-open .right .stat-suffix {
+ font-family: 'Cormorant Garamond', serif; color: var(--gold);
+ font-weight: 700; font-size: 2rem; margin-top: 0.5rem;
+ }
+ .cold-open .right .label {
+ color: var(--soft); font-style: italic; margin-top: 0.5rem;
+ }
+ @media (max-width: 720px) {
+ .cold-open .grid { grid-template-columns: 1fr; }
+ .cold-open .divider { display: none; }
+ }
+
+ /* Body sections */
+ section.scene {
+ max-width: var(--max); margin: 0 auto; padding: 5rem 1.5rem;
+ }
+ section.scene + section.scene { border-top: 1px solid var(--rule); }
+ section.scene .scene-tag {
+ color: var(--magenta); font-weight: 600; letter-spacing: 0.15em;
+ text-transform: uppercase; font-size: 0.78rem; margin-bottom: 1rem;
+ }
+ section.scene h2 {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: clamp(1.9rem, 4vw, 2.8rem); color: var(--navy);
+ line-height: 1.15; margin: 0 0 1.2rem;
+ }
+ section.scene p { max-width: 640px; }
+ section.scene p strong { color: var(--navy); }
+
+ .pullquote {
+ border-left: 4px solid var(--magenta); padding: 1rem 0 1rem 1.5rem;
+ margin: 2rem 0;
+ font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+ color: var(--ink); font-style: italic; line-height: 1.35;
+ max-width: 640px;
+ }
+
+ /* Quadrant cards */
+ .quads {
+ display: grid; grid-template-columns: 1fr 1fr;
+ gap: 1rem; margin: 2rem 0;
+ }
+ .quad {
+ border: 1px solid var(--rule); border-radius: 8px;
+ padding: 1.2rem 1.4rem; background: #FAFBFD;
+ }
+ .quad .name { font-weight: 700; letter-spacing: 0.1em; font-size: 0.85rem; }
+ .quad .body { color: #4A5568; margin-top: 0.4rem; font-size: 0.95rem; }
+ .quad.q1 { border-top: 4px solid #8B6000; } .quad.q1 .name { color: #8B6000; }
+ .quad.q2 { border-top: 4px solid var(--magenta); } .quad.q2 .name { color: var(--magenta); }
+ .quad.q3 { border-top: 4px solid var(--ink); } .quad.q3 .name { color: var(--ink); }
+ .quad.q4 { border-top: 4px solid var(--muted); } .quad.q4 .name { color: #555; }
+
+ /* Interactive viz */
+ .viz-wrap {
+ background: #FAFBFD; border: 1px solid var(--rule); border-radius: 12px;
+ padding: 1.5rem; margin: 2rem 0 1rem;
+ }
+ .viz-controls {
+ display: flex; gap: 0.75rem; margin-bottom: 1rem;
+ flex-wrap: wrap; align-items: center;
+ }
+ .viz-controls .label {
+ font-size: 0.82rem; color: #4A5568;
+ text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+ }
+ .toggle {
+ display: inline-flex; border: 1px solid var(--rule); border-radius: 999px;
+ overflow: hidden; background: white;
+ }
+ .toggle button {
+ background: white; border: 0; padding: 0.55rem 1.1rem;
+ cursor: pointer; font-family: inherit; font-size: 0.92rem; color: #555;
+ }
+ .toggle button.active { background: var(--magenta); color: white; }
+ .country-filter select {
+ font-family: inherit; font-size: 0.92rem; padding: 0.5rem 0.8rem;
+ border: 1px solid var(--rule); border-radius: 6px; background: white;
+ }
+ .figure-caption {
+ font-size: 0.85rem; color: var(--muted); font-style: italic; margin-top: 0.5rem;
+ }
+
+ /* Cinderella table */
+ .cinderella-grid {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+ margin: 2rem 0;
+ }
+ .cinderella-table {
+ border-collapse: collapse; width: 100%; font-size: 0.92rem;
+ }
+ .cinderella-table th {
+ background: #FAFBFD; text-align: left; padding: 0.6rem 0.75rem;
+ border-bottom: 2px solid var(--rule);
+ font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+ color: #555; font-weight: 700;
+ }
+ .cinderella-table td {
+ padding: 0.6rem 0.75rem; border-bottom: 1px solid #F2F4F8;
+ }
+ .cinderella-table .place {
+ font-family: 'Cormorant Garamond', serif; font-weight: 700;
+ font-size: 1.1rem; color: var(--ink); width: 50px;
+ }
+ .cinderella-table .song-cell { line-height: 1.3; }
+ .cinderella-table .song-cell .artist { font-weight: 600; }
+ .cinderella-table .song-cell .song { color: #555; font-style: italic; font-size: 0.88rem; }
+ .cinderella-table .country-year { color: var(--muted); font-size: 0.8rem; }
+ .cinderella-table.robbed th { color: var(--magenta); }
+ .cinderella-table.overhyped th { color: var(--ink); }
+ .cinderella-table .score-magenta { color: var(--magenta); font-weight: 700; }
+ .cinderella-table .score-ink { color: var(--ink); font-weight: 700; }
+ @media (max-width: 720px) {
+ .cinderella-grid { grid-template-columns: 1fr; }
+ }
+
+ /* Iceland scene */
+ .iceland-banner {
+ background: linear-gradient(135deg, #0B3D91, #14275A);
+ color: white; padding: 2rem 1.5rem; border-radius: 12px;
+ margin: 2rem 0 0; text-align: center;
+ }
+ .iceland-banner .flag { font-size: 2.5rem; }
+ .iceland-banner h3 {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 1.8rem; margin: 0.5rem 0; font-weight: 600;
+ }
+ .iceland-stat {
+ display: inline-block; margin: 0 1rem; font-size: 0.9rem; color: var(--soft);
+ }
+ .iceland-stat strong { display: block; color: var(--gold); font-size: 1.4rem; font-weight: 700; }
+
+ /* Footer */
+ footer {
+ background: var(--navy); color: var(--soft);
+ padding: 3rem 1.5rem; text-align: center; font-size: 0.92rem;
+ }
+ footer .group { color: white; font-weight: 600; }
+ footer a { color: var(--gold); text-decoration: none; }
+ footer a:hover { text-decoration: underline; }
+
+ img.fig {
+ width: 100%; height: auto; border-radius: 8px;
+ margin: 2rem 0 0.5rem; display: block;
+ }
+
+ .stat-card {
+ display: inline-block; padding: 1rem 1.4rem; margin: 0.5rem;
+ border-radius: 10px; background: #FAFBFD; border: 1px solid var(--rule);
+ min-width: 160px; text-align: center;
+ }
+ .stat-card .num {
+ font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+ font-weight: 700; color: var(--ink);
+ }
+ .stat-card .num.magenta { color: var(--magenta); }
+ .stat-card .lbl { font-size: 0.78rem; color: #555; text-transform: uppercase; letter-spacing: 0.08em; }
+
+ /* ═══════ Mobile / responsive ═══════ */
+ @media (max-width: 720px) {
+ body { font-size: 16px; }
+ .hero { padding: 4rem 1.2rem 3rem; }
+ .hero h1 { font-size: 2.2rem; }
+ .hero p.dek { font-size: 1rem; }
+
+ section.scene { padding: 3rem 1.2rem; }
+ section.scene h2 { font-size: 1.8rem; }
+
+ .quads { grid-template-columns: 1fr; gap: 0.8rem; }
+ .cinderella-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+
+ .stat-card { min-width: 130px; padding: 0.8rem 1rem; margin: 0.3rem; }
+ .stat-card .num { font-size: 1.5rem; }
+
+ .iceland-stat { display: block; margin: 0.5rem 0; }
+ .iceland-stat strong { font-size: 1.2rem; }
+
+ .viz-wrap { padding: 1rem; }
+ .viz-controls { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+ .viz-controls .label { margin-left: 0 !important; }
+
+ /* Plotly charts: shorten and let them re-flow naturally */
+ #plot { height: 420px !important; }
+ #residuals-plot { height: 460px !important; }
+ #iceland-plot { height: 380px !important; }
+ #movers-plot { height: 480px !important; }
+ #regression-plot { height: 360px !important; }
+
+ .pullquote { font-size: 1.2rem; padding: 0.8rem 0 0.8rem 1rem; }
+ img.fig { margin: 1.5rem 0 0.5rem; }
+ }
+
+ /* ═══════ Tablet / mid-size ═══════ */
+ @media (min-width: 721px) and (max-width: 1024px) {
+ section.scene { padding: 4rem 2rem; }
+ }
+</style>
+</head>
+<body>
+
+<!-- ========== Hero ========== -->
+<header class="hero">
+ <div class="kicker">socialdata2026 · Group 18</div>
+ <h1>Who wins Eurovision, and who wins <em>the world?</em></h1>
+ <p class="dek">A 70-year look at whether the Eurovision scoreboard knows what a hit is, and what happens when we ask the audience instead of the jury.</p>
+ <div class="meta">Arnar Thor Bjornsson &amp; Hanna Margrét Pétursdóttir · DTU · 2026</div>
+</header>
+
+<!-- ========== Cold open: Moldova 2010 Run Away ========== -->
+<section class="cold-open">
+ <div class="grid">
+ <div class="left">
+ <div class="year">2 0 1 0</div>
+ <h2>Run Away</h2>
+ <div class="song">SunStroke Project &amp; Olia Tira · Moldova</div>
+ <div class="verdict">Placed 22nd of 25. Earned 27 points. The judges were unimpressed.</div>
+ </div>
+ <div class="divider"></div>
+ <div class="right">
+ <div class="stat">45M</div>
+ <div class="stat-suffix">YouTube views</div>
+ <div class="label">15 years later</div>
+ </div>
+ </div>
+</section>
+
+<!-- ========== Scene 1: The twist ========== -->
+<section class="scene" id="twist">
+ <div class="scene-tag">Scene 1 · The twist</div>
+ <h2>The scoreboard on the night and the scoreboard of the world rarely agree.</h2>
+ <p>
+ Eurovision crowned <em>Run Away</em> the 22nd-best song of 2010. The world played it 45 million times. ABBA's <em>Waterloo</em> won in 1974 with 24 points, out of a theoretical maximum of 160, defining a generation of pop music with the lowest winning total in Eurovision history.
+ </p>
+ <p>
+ <em>(In 1974 each country had ten jurors. Each juror cast one vote for their favourite song from another country. With sixteen <em>other</em> countries voting on any given song, the ceiling was 160 points; the actual winning range that year was 3 to 24. Compare to 2023, when Loreen's <em>Tattoo</em> won with 583 points out of a theoretical maximum of 900.)</em>
+ </p>
+ <p>
+ For every famous Eurovision song you can name, there are four jury favourites you've never heard of. <strong>What does this gap actually look like at scale?</strong> We pulled 70 years of contest results, tagged every song with its YouTube view count and Last.fm listen count, and asked: when the jury and the audience disagree, who tends to be right?
+ </p>
+ <div class="pullquote">"The jury writes the result. The audience writes the legacy."</div>
+</section>
+
+<!-- ========== Scene 2: Data sources ========== -->
+<section class="scene" id="data">
+ <div class="scene-tag">Scene 2 · Where the numbers come from</div>
+ <h2>Three datasets, three independent measures.</h2>
+ <p>
+ We start with the <strong>Spijkervet Eurovision dataset</strong>. every entry from 1956 to 2025, 1,713 songs across 67 contests and 52 participating countries. From 2016 onward, Eurovision splits each country's vote into <strong>jury points</strong> and <strong>televote points</strong> separately, giving us two parallel scoreboards to compare.
+ </p>
+ <p>
+ For popularity we layer on two independent signals: <strong>YouTube views</strong> and <strong>Last.fm</strong>.
+ </p>
+ <p>
+ YouTube views are the easy one, total times the official video for each finalist has been played. We pulled them via yt-dlp for 99.9% of the 1,713 entries.
+ </p>
+ <p>
+ <strong>Last.fm</strong> is a music-tracking service that's been running since 2002. When a Last.fm user plays a song through Spotify, iTunes, YouTube, or any other player connected to their account, Last.fm automatically logs the listen, a behaviour the service calls <em>"scrobbling"</em>. Across tens of millions of registered users, that produces a global tally of how often any specific song has been played.
+ </p>
+ <p>
+ Last.fm exposes two related-but-distinct numbers per song, and we use both:
+ </p>
+ <ul style="max-width: 640px; margin: 0 0 1rem 1.4rem;">
+ <li style="margin-bottom: 0.4rem;"><strong>Playcount</strong>. total scrobbles, summed across every user. A song scrobbled 10 times by 1 fan and 1 time by 100 people has playcount = 110.</li>
+ <li><strong>Listeners</strong>. unique users who scrobbled the song at least once. The same song has listeners = 101.</li>
+ </ul>
+ <p>
+ The two metrics tell slightly different stories. <em>High playcount, lower listeners</em> = a smaller community of devoted fans who play the song on repeat. <em>High listeners, more modest per-person playcount</em> = broad appeal across many listeners without the obsessive replays. Eurovision songs span both extremes.
+ </p>
+ <p>
+ Together, YouTube and Last.fm capture two different flavours of "popularity": <strong>YouTube captures viral attention</strong>. songs that catch fire on social media and rack up views. <strong>Last.fm captures sustained listening</strong>. songs people queue up on their playlists and play for years.
+ </p>
+ <div style="text-align: center; margin-top: 2rem;">
+ <div class="stat-card"><div class="num">1,713</div><div class="lbl">Songs analysed</div></div>
+ <div class="stat-card"><div class="num">232</div><div class="lbl">2016–25 finalists</div></div>
+ <div class="stat-card"><div class="num">99.9%</div><div class="lbl">YouTube coverage</div></div>
+ <div class="stat-card"><div class="num">97.4%</div><div class="lbl">Last.fm coverage</div></div>
+ </div>
+</section>
+
+<!-- ========== Scene 3: Quadrants ========== -->
+<section class="scene" id="quadrants">
+ <div class="scene-tag">Scene 3 · Four archetypes</div>
+ <h2>Every Eurovision finalist lives in one of four neighbourhoods.</h2>
+ <p>
+ Plot points (x) against popularity (y), draw a line through the median of each, and four neighbourhoods appear:
+ </p>
+ <div class="quads">
+ <div class="quad q1">
+ <div class="name">JUGGERNAUTS</div>
+ <div class="body">High points and high popularity. The contest <em>and</em> the world agreed. Måneskin's <em>Zitti e Buoni</em>, Loreen's <em>Tattoo</em>.</div>
+ </div>
+ <div class="quad q2">
+ <div class="name">SLEEPER HITS</div>
+ <div class="body">Low points, high popularity. The provocative quadrant. <em>Run Away</em>'s home, and a lot of others Eurovision missed.</div>
+ </div>
+ <div class="quad q3">
+ <div class="name">JURY DARLINGS</div>
+ <div class="body">High points, low popularity. The jury rewarded them; the world barely noticed. Salvador Sobral's <em>Amar pelos dois</em> (2017 winner with 758 points) and Cesár Sampson's <em>Nobody but You</em> (2018, 3rd place) sit firmly here.</div>
+ </div>
+ <div class="quad q4">
+ <div class="name">FORGOTTEN</div>
+ <div class="body">Low points, low popularity. The long tail, songs that disappeared the moment the credits rolled.</div>
+ </div>
+ </div>
+</section>
+
+<!-- ========== Scene 4: Interactive scatter ========== -->
+<section class="scene" id="interactive">
+ <div class="scene-tag">Scene 4 · The audience vs, the jury</div>
+ <h2>Toggle the scoreboards. Watch the songs reposition.</h2>
+ <p>
+ Since 2016, Eurovision splits the points: every country awards a full set of jury points and a full set of televote points. That gives us two parallel verdicts on the same song. Toggle below to swap the x-axis between <strong>jury points</strong> and <strong>televote points</strong>. Filter by country to see your own.
+ </p>
+
+ <div class="viz-wrap">
+ <div class="viz-controls">
+ <span class="label">x-axis:</span>
+ <div class="toggle" id="x-toggle">
+ <button data-x="jury" class="active">Jury points</button>
+ <button data-x="tele">Televote points</button>
+ </div>
+ <span class="label" style="margin-left: 1rem;">country:</span>
+ <div class="country-filter">
+ <select id="country-select">
+ <option value="all">All 232 finalists</option>
+ </select>
+ </div>
+ </div>
+ <div id="plot" style="width: 100%; height: 540px;"></div>
+ <div class="figure-caption">Fig. 1. Interactive: jury vs, televote points, plotted against log YouTube views for every 2016–2025 grand finalist. Hover any dot for the song details. Filter by country to see how your favourite voting bloc sees Eurovision.</div>
+ </div>
+</section>
+
+<!-- ========== Scene 5: The triangulated finding ========== -->
+<section class="scene" id="receipts">
+ <div class="scene-tag">Scene 5 · The receipts</div>
+ <h2>Three popularity signals. One nuanced answer.</h2>
+ <p>
+ We tested the jury–televote disagreement against three completely independent measures of "real-world popularity": YouTube views, Last.fm playcounts, and Last.fm unique listeners. The results split:
+ </p>
+ <img class="fig" src="assets/J_TRIANGULATED.png" alt="Bar chart showing that televote dominates jury for YouTube views but ties with jury for Last.fm signals" />
+ <div class="figure-caption">Fig. 2. Pearson correlation of each scoring signal with each popularity signal. Bootstrap 95% CIs, n = 229 finalists.</div>
+ <p style="margin-top: 2rem;">
+ For <strong>YouTube views</strong>, the televote correlates much more strongly than the jury vote. <strong>r = +0.68 vs +0.39</strong>, and Steiger's Z rejects equality at <strong>p &lt; 10⁻⁷</strong>.
+ </p>
+ <p>
+ But for <strong>Last.fm playcounts and listeners</strong>, the gap collapses. Jury and televote each correlate at roughly r = +0.20, with no statistically significant difference (p &gt; 0.15).
+ </p>
+ <p>
+ Why? <strong>YouTube views capture <em>virality</em></strong>. songs that catch fire on social media. The televote, voted live during the broadcast, captures exactly that "did this song grab you" instinct. <strong>Last.fm captures <em>sustained listening</em></strong>. songs you put on playlists and play for years. Juries reward exactly that kind of craft.
+ </p>
+
+ <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--navy); margin-top: 3rem; margin-bottom: 0.5rem;">Confirmed in regression form</h3>
+ <p>
+ To make sure the correlation finding wasn't an artefact of newer videos accumulating views faster, or of voting blocs systematically over-rewarding their neighbours, we fit a series of <strong>ordinary least-squares linear regressions</strong> on all <strong>n = 232 grand finalists</strong>: <code>log(YouTube views)</code> regressed on <em>standardized</em> jury points, televote points, and year, first without country effects, then with one-hot country fixed effects to absorb voting-bloc variance.
+ </p>
+ <div class="viz-wrap" style="padding: 1rem;">
+ <div id="regression-plot" style="width: 100%; height: 400px;"></div>
+ </div>
+ <div class="figure-caption">Fig. 3. Standardized OLS coefficients (interactive, hover for the bootstrap 95% CIs). Grey bars: baseline model (no country effects). Coloured bars: model with 42 country dummies. Adding country effects pushes R² from 0.53 to 0.65.</div>
+ <p style="margin-top: 1rem;">
+ Two findings. <strong>First, adding country fixed effects increases R² from 0.53 to 0.65</strong>. voting blocs really do explain about 12% of additional variance in popularity. <strong>Second, the televote coefficient gets <em>larger</em> when we add country effects, not smaller</strong> (β = +0.31 → +0.34). The jury coefficient stays near zero (+0.04 → +0.03). Once we control for which country a song came from, the televote effect is now <strong>10 times larger</strong> than the jury effect, up from 7.3× without country controls.
+ </p>
+ <p>
+ In plain English: <strong>even after we account for the Nordic bloc, the Eastern European bloc, and every other country-level voting pattern, the televote still predicts YouTube popularity an order of magnitude better than the jury vote.</strong> The finding is robust.
+ </p>
+
+ <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--navy); margin-top: 3rem; margin-bottom: 0.5rem;">Predicted vs actual: who outperformed the model?</h3>
+ <p>
+ Because the regression predicts each song's expected YouTube views from its votes, year, and country, we can flip the model around and ask: <em>which songs vastly exceeded the model's prediction?</em> Those are the empirical Sleeper Hits, songs Eurovision and the bloc-voting math both undersold.
+ </p>
+ <div class="viz-wrap">
+ <div class="viz-controls">
+ <span class="label">country:</span>
+ <div class="country-filter">
+ <select id="residuals-country">
+ <option value="all">All 232 finalists</option>
+ </select>
+ </div>
+ </div>
+ <div id="residuals-plot" style="width: 100%; height: 560px;"></div>
+ <div class="figure-caption">Fig. 4. Predicted vs actual log YouTube views (interactive, hover any dot for song details, filter by country to find yours). Each dot is a 2016–2025 finalist; the dashed line is perfect prediction. Magenta = empirical Sleeper Hits (top 6 positive residuals); gold = empirical Jury Darlings (top 4 negative residuals).</div>
+ </div>
+ <p style="margin-top: 1rem;">
+ Some of the names overlap with the hand-built Cinderella scoreboard from earlier (Efendi's <em>Mata Hari</em> 2021, Hurricane's <em>Loco</em> 2021), but the residual plot derives them from the model rather than from a hand-defined score, which is the more rigorous version of the same insight. Robin Bengtsson's 2017 <em>I Can't Go On</em> finished 5th but the model expected <strong>30× more YouTube views</strong> than it actually got. The audience moved on; the jury didn't.
+ </p>
+
+ <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--navy); margin-top: 3rem; margin-bottom: 0.5rem;">Robustness across years</h3>
+ <p>
+ Is this just one bad year for the jury? No, we computed the jury–popularity and televote–popularity correlation <em>within</em> each contest year separately, on each year's ~26 finalists. The televote outperforms the jury <strong>every single year from 2016 to 2025</strong>, with the gap ranging from +0.05 (2024) to +0.42 (2025).
+ </p>
+ <img class="fig" src="assets/J_GAP_OVER_TIME.png" alt="Line chart: televote correlation with YouTube views vs jury correlation, year by year 2016-2025" />
+ <div class="figure-caption">Fig. 5. Within-year correlation with log YouTube views, computed separately for each contest from 2016–2025. Shaded gap shows televote − jury. Mean gap = +0.31.</div>
+
+ <div class="pullquote">"The jury rewards songs that age. The audience picks songs that catch fire. They're not arguing, they're answering different questions."</div>
+</section>
+
+<!-- ========== Scene 6: ICELAND ========== -->
+<section class="scene" id="iceland">
+ <div class="scene-tag">Scene 6 · A personal angle</div>
+ <h2>What about us?</h2>
+ <p>
+ We're both Icelandic. Iceland first competed at Eurovision in 1986 and has sent an entry in <strong>36 of the 39 contests since</strong> (skipping 1990, 1998, and 2002 for budgetary reasons; 2020 was cancelled for everyone). In all those entries, Iceland has never won. We've come <strong>second twice</strong> (Selma Björnsdóttir's <em>All Out of Luck</em> in 1999, and Yohanna's <em>Is It True?</em> in 2009), but the trophy has always slipped away. We wanted to see if our gut feeling, that the jury keeps underrating us, actually held up in the data.
+ </p>
+ <div class="iceland-banner">
+ <div class="flag">🇮🇸</div>
+ <h3>Iceland at Eurovision</h3>
+ <div style="margin-top: 1rem;">
+ <span class="iceland-stat"><strong id="ice-entries"> </strong>entries</span>
+ <span class="iceland-stat"><strong id="ice-best"> </strong>best place</span>
+ <span class="iceland-stat"><strong id="ice-avg"> </strong>average place</span>
+ <span class="iceland-stat"><strong id="ice-views"> </strong>total YouTube views</span>
+ </div>
+ </div>
+ <div id="iceland-plot" style="width: 100%; height: 480px; margin-top: 2rem;"></div>
+ <div class="figure-caption">Fig. 6. Every Icelandic Eurovision entry, 1986–2025. Bigger bubbles = more YouTube views. Hover for song details.</div>
+ <p style="margin-top: 2rem;">
+ The pattern shows up across every era. <strong>Hatari's <em>Hatrið mun sigra</em> (2019, 10th place)</strong> placed mid-pack but its 6.2 million YouTube views are closer to that year's third-place finisher (Sergey Lazarev, 7.9M) than to any other 10th-placer in our dataset. <strong>Daði og Gagnamagnið's <em>10 Years</em> (2021, 4th place)</strong> gave us our best finish in twelve years but lives quietly on Last.fm, about 1,200 plays total, while the 2021 winner Måneskin sits at over 8 million. The contest's juries rewarded our craft, but the world didn't queue up for repeat listens. And the freshest example: <strong>VÆB's <em>Róa</em> (2025, 25th of 26)</strong>. placed near last by Eurovision, yet ranks <em>#1</em> on our entire "robbed" list (next scene).
+ </p>
+</section>
+
+<!-- ========== Scene 6.5: Iceland's voting bloc ========== -->
+<section class="scene" id="bloc">
+ <div class="scene-tag">Scene 7 · Voting blocs</div>
+ <h2>Eurovision is a map. The points follow the geography.</h2>
+ <p>
+ One thing every Eurovision viewer notices: <em>countries vote for their neighbours</em>. Sweden hands twelve points to Norway; Greece hands twelve points to Cyprus. We wanted to test whether this folk-wisdom voting bloc is real, and where Iceland sits in it.
+ </p>
+ <p>
+ We computed, for every country pair across all 38,000+ grand-final votes from 1957–2025, the <strong>average points per appearance</strong> Iceland sends to other countries (left), and the average other countries send to Iceland (right). To avoid small-sample noise, we filtered to country pairs with <strong>at least 15 co-appearances in finals</strong>. enough overlap that any patterns are statistically meaningful, not the result of one or two outlier songs.
+ </p>
+ <img class="fig" src="assets/iceland_voting_blocs.png" alt="Dual horizontal bar chart showing Iceland's top voting allies and biggest fans" />
+ <div class="figure-caption">Fig. 7. Iceland's reciprocal voting partners. Magenta = Nordic neighbours (Sweden, Norway, Denmark, Finland). Source: 38,202 grand-final votes, 1957–2025, filtered to country pairs with ≥15 co-appearances.</div>
+
+ <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--navy); margin-top: 2.5rem; margin-bottom: 0.5rem;">The voting bloc, on the map</h3>
+ <p style="margin-bottom: 1rem;">
+ The bar chart shows the ranking; the map below shows the geography. Each country is shaded by the average points Iceland's combined vote sends them per appearance, darker pink = more points. Hover any country to see the points in both directions.
+ </p>
+ <div class="viz-wrap">
+ <div class="viz-controls">
+ <span class="label">show:</span>
+ <div class="toggle" id="choropleth-toggle">
+ <button data-dir="out" class="active">Iceland → them</button>
+ <button data-dir="in">them → Iceland</button>
+ </div>
+ </div>
+ <div id="choropleth" style="width: 100%; height: 540px;"></div>
+ <div class="figure-caption">Fig. 8. Choropleth map of Iceland's voting relationships. Toggle the direction; hover any country for the raw numbers.</div>
+ </div>
+ <p style="margin-top: 2rem;">
+ Three things jump out:
+ </p>
+ <ul style="max-width: 640px; margin: 0 0 1rem 1.4rem;">
+ <li><strong>The Nordic bloc is unambiguously real.</strong> All four neighbours. Sweden, Denmark, Norway, Finland, occupy the <em>top five</em> in both directions. (In the "them → Iceland" direction, Estonia ties with Finland for the 4th slot, edging Finland into 5th by a hair, but the four Nordic countries are unambiguously the cluster at the top.) This is reciprocal voting, not one-sided.</li>
+ <li><strong>Sweden is Iceland's strongest favourite (avg 9.1 points per appearance).</strong> Denmark is Iceland's strongest fan (avg 5.9 points). The relationship runs in both directions, just slightly asymmetrically. Iceland gives more than it gets, on average.</li>
+ <li><strong>Estonia and the Netherlands</strong> show up reciprocally too, in the second tier. Estonia's a Baltic neighbour with Nordic cultural affinity; the Netherlands has long-standing musical exchange with Scandinavia.</li>
+ </ul>
+ <p>
+ None of this <em>affects</em> our central jury-vs-televote finding, the bloc effect is too small to swing the n=229 correlation. But it does explain a piece of the unexplained variance. Some of what looks like Iceland's televote tracking "popularity" is partly the bloc giving and receiving its usual neighbourly twelve points.
+ </p>
+ <p>
+ <em>(One thing we deliberately excluded: Australia. Iceland and Australia have only co-appeared seven times, but the average points-per-appearance is the highest of any country (10.1). The high number is real, but it rests on a small sample where two of the seven values are zero, including 2018 and 2022, when Australia sent songs Iceland didn't reward at all. Those are the kinds of patterns that disappear with one more contest. We filter them out so the chart shows the robust signal, not the noisy one.)</em>
+ </p>
+</section>
+
+<!-- ========== Scene 8: CINDERELLA SCORE ========== -->
+<section class="scene" id="cinderella">
+ <div class="scene-tag">Scene 8 · The Cinderella scoreboard</div>
+ <h2>Songs Eurovision missed, and songs Eurovision oversold.</h2>
+ <p>
+ Combining z-scored popularity (YouTube + Last.fm) and z-scored placement, we built a <strong>Cinderella Score</strong>: how much more, or less, popular a song became than its Eurovision finish predicted. The two extremes tell two very different stories.
+ </p>
+
+ <div class="cinderella-grid">
+ <!-- Robbed -->
+ <div>
+ <h3 style="font-family: 'Cormorant Garamond', serif; color: var(--magenta); margin-bottom: 0.5rem;">Most underrated by Eurovision</h3>
+ <p style="font-size: 0.9rem; color: #555; max-width: none; margin: 0 0 1rem;">
+ Placed badly. The world played them anyway.
+ </p>
+ <table class="cinderella-table robbed">
+ <thead><tr><th>Place</th><th>Song</th><th>Score</th></tr></thead>
+ <tbody id="robbed-tbody"></tbody>
+ </table>
+ </div>
+ <!-- Overhyped -->
+ <div>
+ <h3 style="font-family: 'Cormorant Garamond', serif; color: var(--ink); margin-bottom: 0.5rem;">Most overrated by Eurovision</h3>
+ <p style="font-size: 0.9rem; color: #555; max-width: none; margin: 0 0 1rem;">
+ Eurovision podiums. Forgotten by streaming.
+ </p>
+ <table class="cinderella-table overhyped">
+ <thead><tr><th>Place</th><th>Song</th><th>Score</th></tr></thead>
+ <tbody id="overhyped-tbody"></tbody>
+ </table>
+ </div>
+ </div>
+ <p>
+ The list at left is, in a sense, Eurovision's collective "we got that one wrong". songs the contest ranked low but the world played millions of times. The list at right is its mirror: respectable Eurovision finishes that left no cultural footprint.
+ </p>
+</section>
+
+<!-- ========== Scene 9: Counterfactual (E2) ========== -->
+<section class="scene" id="counterfactual">
+ <div class="scene-tag">Scene 9 · The counterfactual</div>
+ <h2>What if Eurovision had used televote only since 2016?</h2>
+ <p>
+ The 50/50 jury-televote split is a policy choice, not a law of nature. Some critics argue Eurovision should drop the jury entirely and let the audience decide. We can test exactly what would have happened, re-rank each year's finalists by televote points only, and see who would have actually won.
+ </p>
+
+ <img class="fig" src="assets/J_COUNTERFACTUAL.png" alt="Comparison table of actual winners vs televote-only winners 2016-2025" />
+ <div class="figure-caption">Fig. 9. Actual winners vs, counterfactual televote-only winners, all nine post-2016 contests. Magenta rows mark years with different winners.</div>
+
+ <p style="margin-top: 2rem;">
+ Of the nine contests since the jury–televote split was published separately, <strong>five would have produced different winners under televote-only</strong>:
+ </p>
+ <ul style="max-width: 640px; margin: 0 0 1rem 1.4rem;">
+ <li style="margin-bottom: 0.6rem;"><strong>2016: Russia (Lazarev) instead of Ukraine (Jamala)</strong>. politically charged enough that Eurovision arguably needed the jury that year.</li>
+ <li style="margin-bottom: 0.6rem;"><strong>2019: Norway (KEiiNO) instead of Netherlands (Duncan Laurence)</strong>. *Spirit in the Sky* was the audience favourite; *Arcade* won the jury vote.</li>
+ <li style="margin-bottom: 0.6rem;"><strong>2023: Finland (Käärijä) instead of Sweden (Loreen)</strong>. the most-watched-on-Twitter Eurovision song of the decade would have won the trophy that the jury gave Loreen.</li>
+ <li style="margin-bottom: 0.6rem;"><strong>2024: Croatia (Baby Lasagna) instead of Switzerland (Nemo)</strong>. *Rim Tim Tagi Dim* was the meme song that defined that year.</li>
+ <li><strong>2025: Israel (Yuval Raphael) instead of Austria (JJ)</strong>. controversially, given the year's geopolitical context.</li>
+ </ul>
+
+ <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--magenta); margin-top: 2.5rem; margin-bottom: 0.5rem;">The biggest movers</h3>
+ <p style="margin-bottom: 1rem;">
+ Some songs would have climbed double-digit places under televote-only, exactly the Sleeper Hits the audience saw and the jury didn't:
+ </p>
+ <div class="viz-wrap">
+ <div id="movers-plot" style="width: 100%; height: 480px;"></div>
+ <div class="figure-caption">Fig. 10. Top 10 audience-favoured songs (interactive, hover for details). Each bar = how many places the song would have <em>climbed</em> in the rankings under televote-only.</div>
+ </div>
+
+ <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--ink); margin-top: 2rem; margin-bottom: 0.5rem;">Iceland under televote-only</h3>
+ <p>
+ Our own country sees a clear improvement. Hatari's <em>Hatrið mun sigra</em> (2019) climbs from 10th to 6th. Systur (2022) climbs from 23rd to 18th. <strong>VÆB's <em>Róa</em> (2025) jumps from 25th of 26 all the way to 17th</strong>. an 8-place leap. Daði (2021), interestingly, drops from 4th to 5th, within our 2016+ data subset, Daði is the clearest Icelandic case of the contest's juries rewarding craft over catchiness, scoring a top-5 finish but accumulating only ~1,200 Last.fm plays.
+ </p>
+
+ <p style="margin-top: 2rem;">
+ The takeaway isn't that Eurovision should switch to televote-only. The takeaway is that the system Eurovision <em>does</em> have. 50/50, with both judgements visible, is doing meaningful work. Removing the jury would change the winner one year in two, and not always for the better.
+ </p>
+</section>
+
+<!-- ========== Scene 10: Closing ========== -->
+<section class="scene" id="close">
+ <div class="scene-tag">Scene 10 · So who's right?</div>
+ <h2>Both. They were always answering different questions.</h2>
+ <p>
+ The 50/50 jury/televote split isn't a flaw. <strong>It's Eurovision hedging between two complementary judgments.</strong> The jury rewards craft that ages well, the song that holds up on the fiftieth listen. The audience rewards craft that catches fire, the song that grabs you in three minutes of TV.
+ </p>
+ <p>
+ When the two scoreboards agree (Loreen's <em>Tattoo</em>, Måneskin's <em>Zitti e Buoni</em>), you get a juggernaut that wins on the night and lives on streaming. When they disagree, both sides are right, just about different things. The audience is correct that <em>Run Away</em> deserved more than 22nd place. The jury is correct that the songs they put on the podium will still be played in 30 years.
+ </p>
+ <p>
+ Eurovision works because it asks both questions. The next time your country sends a song the jury seems to ignore. <strong>watch the YouTube views.</strong> The audience will tell you whether you were robbed.
+ </p>
+ <div class="pullquote">"24 points is enough to change pop music, if you're ABBA. 27 points is enough to play a song 45 million times, if you're <em>Run Away</em>."</div>
+ <p style="margin-top: 2.5rem;">
+ The full methodology, statistical tests, dataset description, and reflections live in the <a href="./Assignment_B_Explainer.ipynb" style="color: var(--magenta); text-decoration: underline;"><strong>explainer notebook</strong></a>. This site is the story; that's the receipts.
+ </p>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer>
+ <div class="group">Group 18 · Arnar Thor Bjornsson &amp; Hanna Margrét Pétursdóttir</div>
+ <div>02806 Social Data Analysis &amp; Visualization · DTU · Spring 2026</div>
+ <div style="margin-top: 1rem;">
+ <a href="./Assignment_B_Explainer.ipynb">Explainer notebook</a> ·
+ <a href="https://github.com/Spijkervet/eurovision-dataset">Spijkervet dataset</a> ·
+ <a href="https://idl.cs.washington.edu/files/2010-NarrativeVisualization-InfoVis.pdf">Segel &amp; Heer 2010</a>
+ </div>
+</footer>
+
+
+<!-- ========== Data + interactive ========== -->
+<script src="website_data.js"></script>
+<script>
+const NAVY = "#0B1B3D";
+const INK = "#0B3D91";
+const MAGENTA = "#E6007E";
+const GOLD = "#F2C94C";
+const MUTED = "#9AA5B1";
+
+// ─── Country dropdown ─────────────────────────────────────
+(function () {
+ const sel = document.getElementById("country-select");
+ const countries = [...new Set(FINALISTS.map(s => s.country))].sort();
+ for (const c of countries) {
+ const opt = document.createElement("option");
+ opt.value = c; opt.textContent = c;
+ sel.appendChild(opt);
+ }
+ sel.addEventListener("change", () => buildPlot());
+})();
+
+// ─── Main interactive scatter (Scene 4) ───────────────────
+let currentX = "jury";
+
+function buildPlot() {
+ const country = document.getElementById("country-select").value;
+ const data = (country === "all") ? FINALISTS : FINALISTS.filter(s => s.country === country);
+
+ const x = data.map(s => currentX === "jury" ? s.jury : s.tele);
+ const y = data.map(s => Math.log10(s.yt_views));
+ const sizes = data.map(s => 8 + Math.min(40, Math.log10(s.yt_views) * 2));
+ const text = data.map(s =>
+ `<b>${s.artist}</b>. <i>${s.song}</i><br>` +
+ `${s.country} · ${s.year} · place ${s.place}<br>` +
+ `Jury: ${s.jury} · Televote: ${s.tele}<br>` +
+ `YouTube: ${s.yt_views.toLocaleString()} views<br>` +
+ `Last.fm: ${s.lastfm_play.toLocaleString()} plays`
+ );
+
+ const trace = {
+ x, y,
+ mode: "markers",
+ type: "scatter",
+ text,
+ hoverinfo: "text",
+ marker: {
+ size: sizes,
+ color: currentX === "jury" ? INK : MAGENTA,
+ line: { color: "white", width: 1 },
+ opacity: 0.78,
+ },
+ };
+
+ // Annotate three biggest disagreements (in current view)
+ let annotations = [];
+ if (data.length > 5) {
+ const sorted = [...data].sort((a, b) =>
+ Math.abs(b.tele - b.jury) - Math.abs(a.tele - a.jury)
+ ).slice(0, 3);
+ annotations = sorted.map(s => ({
+ x: currentX === "jury" ? s.jury : s.tele,
+ y: Math.log10(s.yt_views),
+ text: `${s.artist}<br><i>${s.song}</i>`,
+ showarrow: true, arrowhead: 0, arrowwidth: 1, arrowcolor: "#888",
+ ax: 30, ay: -28,
+ font: { size: 10, family: "Inter" },
+ bgcolor: "rgba(255,255,255,0.92)",
+ bordercolor: "#ccc", borderwidth: 1, borderpad: 4,
+ }));
+ }
+
+ const layout = {
+ xaxis: {
+ title: { text: currentX === "jury" ? "Jury points" : "Televote points", font: { size: 13 } },
+ gridcolor: "#EEE",
+ },
+ yaxis: {
+ title: { text: "log₁₀(YouTube views)", font: { size: 13 } },
+ gridcolor: "#EEE",
+ },
+ margin: { l: 60, r: 30, t: 20, b: 60 },
+ plot_bgcolor: "#FAFBFD",
+ paper_bgcolor: "#FAFBFD",
+ annotations,
+ hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
+ };
+
+ Plotly.newPlot("plot", [trace], layout, { displayModeBar: false, responsive: true });
+}
+
+document.querySelectorAll("#x-toggle button").forEach(btn => {
+ btn.addEventListener("click", () => {
+ document.querySelectorAll("#x-toggle button").forEach(b => b.classList.remove("active"));
+ btn.classList.add("active");
+ currentX = btn.dataset.x;
+ buildPlot();
+ });
+});
+
+buildPlot();
+
+
+// ─── Iceland scene ────────────────────────────────────────
+(function () {
+ const ice = ICELAND.filter(e => e.points != null);
+ const iceWithViews = ICELAND.filter(e => e.yt_views != null);
+ document.getElementById("ice-entries").textContent = ICELAND.length;
+ const placedEntries = ICELAND.filter(e => e.place != null);
+ const bestPlace = placedEntries.length ? Math.min(...placedEntries.map(e => e.place)) : " ";
+ document.getElementById("ice-best").textContent = "#" + bestPlace;
+ const avgPlace = placedEntries.length
+ ? (placedEntries.reduce((s, e) => s + e.place, 0) / placedEntries.length).toFixed(1)
+ : " ";
+ document.getElementById("ice-avg").textContent = "#" + avgPlace;
+ const totalViews = iceWithViews.reduce((s, e) => s + e.yt_views, 0);
+ const fmtViews = totalViews >= 1e9 ? (totalViews / 1e9).toFixed(1) + "B"
+ : totalViews >= 1e6 ? (totalViews / 1e6).toFixed(0) + "M"
+ : totalViews >= 1e3 ? (totalViews / 1e3).toFixed(0) + "K"
+ : totalViews;
+ document.getElementById("ice-views").textContent = fmtViews;
+
+ const plotData = ICELAND.filter(e => e.place != null && e.yt_views != null);
+ const text = plotData.map(s =>
+ `<b>${s.artist}</b>. <i>${s.song}</i><br>` +
+ `${s.year} · place ${s.place}<br>` +
+ `${s.points ? "Points: " + s.points + "<br>" : ""}` +
+ `YouTube: ${s.yt_views.toLocaleString()} views`
+ );
+
+ const trace = {
+ x: plotData.map(s => s.year),
+ y: plotData.map(s => s.place),
+ mode: "markers",
+ type: "scatter",
+ text, hoverinfo: "text",
+ marker: {
+ size: plotData.map(s => 6 + Math.log10(s.yt_views) * 3),
+ color: plotData.map(s => Math.log10(s.yt_views)),
+ colorscale: [[0, "#D6E0F2"], [1, MAGENTA]],
+ showscale: true,
+ colorbar: {
+ title: { text: "log views", font: { size: 11 } },
+ thickness: 12, len: 0.5,
+ },
+ line: { color: "white", width: 1.2 },
+ },
+ };
+
+ const layout = {
+ xaxis: { title: { text: "Year", font: { size: 13 } }, gridcolor: "#EEE" },
+ yaxis: { title: { text: "Place in final (lower = better)", font: { size: 13 } },
+ autorange: "reversed", gridcolor: "#EEE" },
+ margin: { l: 60, r: 30, t: 20, b: 60 },
+ plot_bgcolor: "#FAFBFD", paper_bgcolor: "#FAFBFD",
+ hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
+ };
+ Plotly.newPlot("iceland-plot", [trace], layout, { displayModeBar: false, responsive: true });
+})();
+
+
+// ─── Fig 3: Regression coefficient comparison ─────────────
+(function () {
+ const m1 = REGRESSION.model_1_no_FE;
+ const m2 = REGRESSION.model_2_with_FE;
+ const labels = ["Jury vote", "Televote", "Year"];
+ const m1_vals = [m1.jury_z, m1.tele_z, m1.year_z];
+ const m2_vals = [m2.jury_z, m2.tele_z, m2.year_z];
+ const m1_err = {
+ array: [m1.ci.jury_hi - m1.jury_z, m1.ci.tele_hi - m1.tele_z, 0.04],
+ arrayminus: [m1.jury_z - m1.ci.jury_lo, m1.tele_z - m1.ci.tele_lo, 0.04],
+ };
+ const m2_err = {
+ array: [m2.ci.jury_hi - m2.jury_z, m2.ci.tele_hi - m2.tele_z, 0.04],
+ arrayminus: [m2.jury_z - m2.ci.jury_lo, m2.tele_z - m2.ci.tele_lo, 0.04],
+ };
+
+ const trace1 = {
+ x: labels, y: m1_vals,
+ type: "bar", name: "No country FE",
+ marker: { color: MUTED },
+ error_y: { ...m1_err, type: "data", symmetric: false, color: "#666", thickness: 1.2 },
+ text: m1_vals.map(v => `β = ${v >= 0 ? "+" : ""}${v.toFixed(3)}`),
+ textposition: "outside",
+ hovertemplate: "<b>%{x}</b><br>" +
+ "β = %{y:.3f}<br>" +
+ "95%% CI: [%{customdata[0]:.3f}, %{customdata[1]:.3f}]" +
+ "<extra>No country FE</extra>",
+ customdata: [
+ [m1.ci.jury_lo, m1.ci.jury_hi],
+ [m1.ci.tele_lo, m1.ci.tele_hi],
+ [m1.year_z - 0.04, m1.year_z + 0.04],
+ ],
+ };
+ const trace2 = {
+ x: labels, y: m2_vals,
+ type: "bar", name: "WITH country FE",
+ marker: { color: [INK, MAGENTA, GOLD] },
+ error_y: { ...m2_err, type: "data", symmetric: false, color: "#444", thickness: 1.2 },
+ text: m2_vals.map(v => `β = ${v >= 0 ? "+" : ""}${v.toFixed(3)}`),
+ textposition: "outside", textfont: { weight: "bold" },
+ hovertemplate: "<b>%{x}</b><br>" +
+ "β = %{y:.3f}<br>" +
+ "95%% CI: [%{customdata[0]:.3f}, %{customdata[1]:.3f}]" +
+ "<extra>WITH country fixed effects</extra>",
+ customdata: [
+ [m2.ci.jury_lo, m2.ci.jury_hi],
+ [m2.ci.tele_lo, m2.ci.tele_hi],
+ [m2.year_z - 0.04, m2.year_z + 0.04],
+ ],
+ };
+
+ const layout = {
+ barmode: "group",
+ yaxis: {
+ title: { text: "Standardized OLS coefficient", font: { size: 12 } },
+ gridcolor: "#EEE", zeroline: true, zerolinecolor: "#888",
+ },
+ xaxis: { title: "" },
+ margin: { l: 60, r: 30, t: 20, b: 50 },
+ plot_bgcolor: "#FAFBFD", paper_bgcolor: "#FAFBFD",
+ legend: { orientation: "h", x: 0.02, y: 1.1 },
+ hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
+ };
+
+ Plotly.newPlot("regression-plot", [trace1, trace2], layout,
+ { displayModeBar: false, responsive: true });
+})();
+
+
+// ─── Fig 4: Residuals scatter ─────────────────────────────
+(function () {
+ const sel = document.getElementById("residuals-country");
+ const countries = [...new Set(RESIDUALS.map(s => s.country))].sort();
+ for (const c of countries) {
+ const opt = document.createElement("option");
+ opt.value = c; opt.textContent = c;
+ sel.appendChild(opt);
+ }
+ sel.addEventListener("change", buildResidualsPlot);
+})();
+
+function buildResidualsPlot() {
+ const country = document.getElementById("residuals-country").value;
+ const filtered = (country === "all") ? RESIDUALS : RESIDUALS.filter(s => s.country === country);
+
+ // Identify top sleepers / jury darlings (always from full set, regardless of filter)
+ const sleeperKeys = new Set(
+ [...RESIDUALS].sort((a, b) => b.resid - a.resid).slice(0, 6)
+ .map(s => `${s.year}-${s.country}-${s.artist}`)
+ );
+ const darlingKeys = new Set(
+ [...RESIDUALS].sort((a, b) => a.resid - b.resid).slice(0, 4)
+ .map(s => `${s.year}-${s.country}-${s.artist}`)
+ );
+
+ // Split into three traces
+ const normal = filtered.filter(s => {
+ const k = `${s.year}-${s.country}-${s.artist}`;
+ return !sleeperKeys.has(k) && !darlingKeys.has(k);
+ });
+ const sleepers = filtered.filter(s => sleeperKeys.has(`${s.year}-${s.country}-${s.artist}`));
+ const darlings = filtered.filter(s => darlingKeys.has(`${s.year}-${s.country}-${s.artist}`));
+
+ const tooltip = s =>
+ `<b>${s.artist}</b>. <i>${s.song}</i><br>` +
+ `${s.country} · ${s.year} · place ${s.place}<br>` +
+ `Jury: ${s.jury} · Televote: ${s.tele}<br>` +
+ `Actual: ${s.yt_views.toLocaleString()} views<br>` +
+ `Predicted: ${Math.round(Math.pow(10, s.predicted_log_yt)).toLocaleString()} views<br>` +
+ `Residual: ${s.resid >= 0 ? "+" : ""}${s.resid.toFixed(2)} (model ${s.resid > 0 ? "under" : "over"}-predicted by ${Math.abs(Math.pow(10, s.resid)).toFixed(1)}×)`;
+
+ const traces = [
+ {
+ x: normal.map(s => s.predicted_log_yt),
+ y: normal.map(s => s.actual_log_yt),
+ mode: "markers", type: "scatter",
+ text: normal.map(tooltip), hoverinfo: "text",
+ marker: { size: 8, color: INK, opacity: 0.45,
+ line: { color: "white", width: 0.6 } },
+ name: "Other finalists", showlegend: filtered.length > sleepers.length + darlings.length,
+ },
+ {
+ x: sleepers.map(s => s.predicted_log_yt),
+ y: sleepers.map(s => s.actual_log_yt),
+ mode: "markers", type: "scatter",
+ text: sleepers.map(tooltip), hoverinfo: "text",
+ marker: { size: 13, color: "white",
+ line: { color: MAGENTA, width: 2.5 } },
+ name: "Empirical Sleeper Hits",
+ },
+ {
+ x: darlings.map(s => s.predicted_log_yt),
+ y: darlings.map(s => s.actual_log_yt),
+ mode: "markers", type: "scatter",
+ text: darlings.map(tooltip), hoverinfo: "text",
+ marker: { size: 13, color: "white",
+ line: { color: GOLD, width: 2.5 } },
+ name: "Empirical Jury Darlings",
+ },
+ ];
+
+ // Diagonal reference line
+ const allX = filtered.map(s => s.predicted_log_yt);
+ const allY = filtered.map(s => s.actual_log_yt);
+ const lo = Math.min(...allX, ...allY) - 0.3;
+ const hi = Math.max(...allX, ...allY) + 0.3;
+ traces.push({
+ x: [lo, hi], y: [lo, hi],
+ mode: "lines", type: "scatter",
+ line: { color: "#888", dash: "dash", width: 1 },
+ name: "Perfect prediction", hoverinfo: "skip",
+ });
+
+ const layout = {
+ xaxis: { title: { text: "Predicted log₁₀(YouTube views). from votes + year + country", font: { size: 12 } },
+ gridcolor: "#EEE", range: [lo, hi] },
+ yaxis: { title: { text: "Actual log₁₀(YouTube views)", font: { size: 12 } },
+ gridcolor: "#EEE", range: [lo, hi] },
+ margin: { l: 65, r: 30, t: 20, b: 60 },
+ plot_bgcolor: "#FAFBFD", paper_bgcolor: "#FAFBFD",
+ hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
+ legend: { orientation: "h", x: 0.02, y: 1.05 },
+ };
+
+ Plotly.newPlot("residuals-plot", traces, layout,
+ { displayModeBar: false, responsive: true });
+}
+
+buildResidualsPlot();
+
+
+// ─── Iceland choropleth (Scene 7) ─────────────────────────
+let choroDir = "out";
+
+function buildChoropleth() {
+ // Filter to records with the selected direction's data
+ const records = CHOROPLETH.filter(r =>
+ choroDir === "out" ? r.out_avg !== null : r.in_avg !== null
+ );
+
+ const locations = records.map(r => r.iso3);
+ const values = records.map(r => choroDir === "out" ? r.out_avg : r.in_avg);
+ const text = records.map(r => {
+ const out = r.out_avg !== null ? `${r.out_avg.toFixed(1)} avg/year (${r.out_n}×)` : " ";
+ const inv = r.in_avg !== null ? `${r.in_avg.toFixed(1)} avg/year (${r.in_n}×)` : " ";
+ return `<b>${r.country}</b><br>` +
+ `Iceland → ${r.country}: ${out}<br>` +
+ `${r.country} → Iceland: ${inv}`;
+ });
+
+ const trace = {
+ type: "choropleth",
+ locations,
+ z: values,
+ text,
+ hoverinfo: "text",
+ locationmode: "ISO-3",
+ colorscale: [
+ [0, "#F4F5F8"],
+ [0.25, "#FCE4EE"],
+ [0.5, "#F8B5D0"],
+ [0.75, "#EE7BAC"],
+ [1, MAGENTA],
+ ],
+ colorbar: {
+ title: { text: choroDir === "out"
+ ? "Avg points<br>Iceland → them"
+ : "Avg points<br>them → Iceland",
+ font: { size: 11 } },
+ thickness: 14, len: 0.7,
+ },
+ marker: { line: { color: "white", width: 0.5 } },
+ };
+
+ const layout = {
+ geo: {
+ scope: "world",
+ projection: { type: "natural earth" },
+ showcountries: true,
+ countrycolor: "#DDD",
+ lataxis: { range: [25, 75] },
+ lonaxis: { range: [-30, 60] },
+ showland: true, landcolor: "#FAFBFD",
+ bgcolor: "#FAFBFD",
+ },
+ margin: { l: 0, r: 0, t: 10, b: 0 },
+ paper_bgcolor: "#FAFBFD",
+ hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
+ };
+
+ Plotly.newPlot("choropleth", [trace], layout,
+ { displayModeBar: false, responsive: true });
+}
+
+document.querySelectorAll("#choropleth-toggle button").forEach(btn => {
+ btn.addEventListener("click", () => {
+ document.querySelectorAll("#choropleth-toggle button").forEach(b => b.classList.remove("active"));
+ btn.classList.add("active");
+ choroDir = btn.dataset.dir;
+ buildChoropleth();
+ });
+});
+
+buildChoropleth();
+
+
+// ─── E2: Counterfactual movers chart ──────────────────────
+(function () {
+ const movers = COUNTERFACTUAL.biggest_climbers;
+ const labels = movers.map(m => `${m.artist}. ${m.song} (${m.year})`);
+ const climbed = movers.map(m => m.places_climbed);
+
+ const trace = {
+ x: climbed.slice().reverse(),
+ y: labels.slice().reverse(),
+ type: "bar", orientation: "h",
+ marker: { color: MAGENTA, line: { color: "white", width: 1 } },
+ text: climbed.slice().reverse().map(c => `+${c} places`),
+ textposition: "outside", textfont: { size: 10 },
+ hovertemplate: "<b>%{customdata[0]}</b><br>" +
+ "%{customdata[1]} (place %{customdata[2]})<br>" +
+ "Actual rank: %{customdata[3]}<br>" +
+ "Televote-only rank: %{customdata[4]}<br>" +
+ "Climbed: <b>+%{x} places</b>" +
+ "<extra></extra>",
+ customdata: movers.slice().reverse().map(m =>
+ [m.song, m.country, m.year, m.actual_rank, m.cf_rank]),
+ };
+ const layout = {
+ xaxis: { title: { text: "Places climbed under televote-only", font: { size: 12 } },
+ gridcolor: "#EEE" },
+ yaxis: { automargin: true, tickfont: { size: 10 } },
+ margin: { l: 30, r: 60, t: 20, b: 50 },
+ plot_bgcolor: "#FAFBFD", paper_bgcolor: "#FAFBFD",
+ hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
+ };
+ Plotly.newPlot("movers-plot", [trace], layout,
+ { displayModeBar: false, responsive: true });
+})();
+
+
+// ─── Cinderella tables ────────────────────────────────────
+(function () {
+ const sorted = [...FINALISTS].sort((a, b) => b.cinderella - a.cinderella);
+ const robbed = sorted.slice(0, 10);
+ const overhyped = sorted.slice(-10).reverse();
+
+ const cell = (s, scoreClass) => `
+ <tr>
+ <td class="place">#${s.place}</td>
+ <td class="song-cell">
+ <div class="artist">${s.artist}</div>
+ <div class="song">${s.song}</div>
+ <div class="country-year">${s.country} · ${s.year}</div>
+ </td>
+ <td class="${scoreClass}">${s.cinderella > 0 ? "+" : ""}${s.cinderella.toFixed(2)}</td>
+ </tr>
+ `;
+
+ document.getElementById("robbed-tbody").innerHTML =
+ robbed.map(s => cell(s, "score-magenta")).join("");
+ document.getElementById("overhyped-tbody").innerHTML =
+ overhyped.map(s => cell(s, "score-ink")).join("");
+})();
+</script>
+</body>
+</html>

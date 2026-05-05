@@ -1,0 +1,334 @@
+{
+  "per_year_winners": [
+    {
+      "year": 2016,
+      "actual_winner": "Ukraine \u2014 Jamala \u2014 1944",
+      "actual_winner_pts": 534,
+      "cf_winner": "Russia \u2014 Sergey Lazarev \u2014 You Are the Only One",
+      "cf_winner_tele": 361,
+      "same": false
+    },
+    {
+      "year": 2017,
+      "actual_winner": "Portugal \u2014 Salvador Sobral \u2014 Amar pelos dois",
+      "actual_winner_pts": 758,
+      "cf_winner": "Portugal \u2014 Salvador Sobral \u2014 Amar pelos dois",
+      "cf_winner_tele": 376,
+      "same": true
+    },
+    {
+      "year": 2018,
+      "actual_winner": "Israel \u2014 Netta \u2014 Toy",
+      "actual_winner_pts": 529,
+      "cf_winner": "Israel \u2014 Netta \u2014 Toy",
+      "cf_winner_tele": 317,
+      "same": true
+    },
+    {
+      "year": 2019,
+      "actual_winner": "Netherlands \u2014 Duncan Laurence \u2014 Arcade",
+      "actual_winner_pts": 498,
+      "cf_winner": "Norway \u2014 KEiiNO \u2014 Spirit In The Sky",
+      "cf_winner_tele": 291,
+      "same": false
+    },
+    {
+      "year": 2021,
+      "actual_winner": "Italy \u2014 M\u00e5neskin \u2014 Zitti e buoni",
+      "actual_winner_pts": 524,
+      "cf_winner": "Italy \u2014 M\u00e5neskin \u2014 Zitti e buoni",
+      "cf_winner_tele": 318,
+      "same": true
+    },
+    {
+      "year": 2022,
+      "actual_winner": "Ukraine \u2014 Kalush Orchestra \u2014 Stefania",
+      "actual_winner_pts": 631,
+      "cf_winner": "Ukraine \u2014 Kalush Orchestra \u2014 Stefania",
+      "cf_winner_tele": 439,
+      "same": true
+    },
+    {
+      "year": 2023,
+      "actual_winner": "Sweden \u2014 Loreen \u2014 Tattoo",
+      "actual_winner_pts": 583,
+      "cf_winner": "Finland \u2014 K\u00e4\u00e4rij\u00e4 \u2014 Cha",
+      "cf_winner_tele": 376,
+      "same": false
+    },
+    {
+      "year": 2024,
+      "actual_winner": "Switzerland \u2014 Nemo \u2014 The Code",
+      "actual_winner_pts": 591,
+      "cf_winner": "Croatia \u2014 Baby Lasagna \u2014 Rim Tim Tagi Dim",
+      "cf_winner_tele": 337,
+      "same": false
+    },
+    {
+      "year": 2025,
+      "actual_winner": "Austria \u2014 JJ \u2014 Wasted Love",
+      "actual_winner_pts": 436,
+      "cf_winner": "Israel \u2014 Yuval Raphael \u2014 New Day Will Rise",
+      "cf_winner_tele": 297,
+      "same": false
+    }
+  ],
+  "biggest_climbers": [
+    {
+      "year": 2023,
+      "country": "Albania",
+      "artist": "Albina & Familja Kelmendi",
+      "song": "Duje",
+      "actual_rank": 22,
+      "cf_rank": 10,
+      "places_climbed": 12,
+      "tele": 59,
+      "jury": 17
+    },
+    {
+      "year": 2023,
+      "country": "Poland",
+      "artist": "Blanka",
+      "song": "Solo",
+      "actual_rank": 19,
+      "cf_rank": 8,
+      "places_climbed": 11,
+      "tele": 81,
+      "jury": 12
+    },
+    {
+      "year": 2017,
+      "country": "Poland",
+      "artist": "Kasia Mo\u015b",
+      "song": "Flashlight",
+      "actual_rank": 22,
+      "cf_rank": 12,
+      "places_climbed": 10,
+      "tele": 41,
+      "jury": 23
+    },
+    {
+      "year": 2018,
+      "country": "Ukraine",
+      "artist": "M\u00e9lovin",
+      "song": "Under The Ladder",
+      "actual_rank": 17,
+      "cf_rank": 7,
+      "places_climbed": 10,
+      "tele": 119,
+      "jury": 11
+    },
+    {
+      "year": 2019,
+      "country": "San Marino",
+      "artist": "Serhat",
+      "song": "Say Na",
+      "actual_rank": 19,
+      "cf_rank": 10,
+      "places_climbed": 9,
+      "tele": 65,
+      "jury": 12
+    },
+    {
+      "year": 2023,
+      "country": "Moldova",
+      "artist": "Pasha Parfeni",
+      "song": "Soarele \u0219i Luna",
+      "actual_rank": 18,
+      "cf_rank": 9,
+      "places_climbed": 9,
+      "tele": 76,
+      "jury": 20
+    },
+    {
+      "year": 2019,
+      "country": "Spain",
+      "artist": "Miki",
+      "song": "La venda",
+      "actual_rank": 22,
+      "cf_rank": 14,
+      "places_climbed": 8,
+      "tele": 53,
+      "jury": 1
+    },
+    {
+      "year": 2025,
+      "country": "Iceland",
+      "artist": "V\u00e6b",
+      "song": "R\u00f3a",
+      "actual_rank": 25,
+      "cf_rank": 17,
+      "places_climbed": 8,
+      "tele": 33,
+      "jury": 0
+    },
+    {
+      "year": 2016,
+      "country": "Serbia",
+      "artist": "Sanja Vu\u010di\u0107 ZAA",
+      "song": "Goodbye (Shelter)",
+      "actual_rank": 18,
+      "cf_rank": 11,
+      "places_climbed": 7,
+      "tele": 80,
+      "jury": 35
+    },
+    {
+      "year": 2017,
+      "country": "Cyprus",
+      "artist": "Hovig",
+      "song": "Gravity",
+      "actual_rank": 21,
+      "cf_rank": 14,
+      "places_climbed": 7,
+      "tele": 32,
+      "jury": 36
+    }
+  ],
+  "biggest_fallers": [
+    {
+      "year": 2017,
+      "country": "Australia",
+      "artist": "Isaiah",
+      "song": "Don't Come Easy",
+      "actual_rank": 9,
+      "cf_rank": 25,
+      "places_dropped": 16,
+      "tele": 2,
+      "jury": 171
+    },
+    {
+      "year": 2018,
+      "country": "Sweden",
+      "artist": "Benjamin Ingrosso",
+      "song": "Dance You Off",
+      "actual_rank": 7,
+      "cf_rank": 23,
+      "places_dropped": 16,
+      "tele": 21,
+      "jury": 253
+    },
+    {
+      "year": 2025,
+      "country": "Switzerland",
+      "artist": "Zo\u00eb M\u00eb",
+      "song": "Voyage",
+      "actual_rank": 10,
+      "cf_rank": 25,
+      "places_dropped": 15,
+      "tele": 0,
+      "jury": 214
+    },
+    {
+      "year": 2019,
+      "country": "Czechia",
+      "artist": "Lake Malawi",
+      "song": "of a Friend",
+      "actual_rank": 11,
+      "cf_rank": 24,
+      "places_dropped": 13,
+      "tele": 7,
+      "jury": 150
+    },
+    {
+      "year": 2023,
+      "country": "Australia",
+      "artist": "Voyager",
+      "song": "Promise",
+      "actual_rank": 9,
+      "cf_rank": 20,
+      "places_dropped": 11,
+      "tele": 21,
+      "jury": 130
+    },
+    {
+      "year": 2023,
+      "country": "Estonia",
+      "artist": "Alika",
+      "song": "Bridges",
+      "actual_rank": 8,
+      "cf_rank": 19,
+      "places_dropped": 11,
+      "tele": 22,
+      "jury": 146
+    },
+    {
+      "year": 2017,
+      "country": "Austria",
+      "artist": "Nathan Trent",
+      "song": "Running On Air",
+      "actual_rank": 16,
+      "cf_rank": 26,
+      "places_dropped": 10,
+      "tele": 0,
+      "jury": 93
+    },
+    {
+      "year": 2018,
+      "country": "Austria",
+      "artist": "Ces\u00e1r Sampson",
+      "song": "Nobody But You",
+      "actual_rank": 3,
+      "cf_rank": 13,
+      "places_dropped": 10,
+      "tele": 71,
+      "jury": 271
+    },
+    {
+      "year": 2024,
+      "country": "Portugal",
+      "artist": "Iolanda",
+      "song": "Grito",
+      "actual_rank": 10,
+      "cf_rank": 20,
+      "places_dropped": 10,
+      "tele": 13,
+      "jury": 139
+    },
+    {
+      "year": 2016,
+      "country": "Malta",
+      "artist": "Ira Losco",
+      "song": "Walk on Water",
+      "actual_rank": 12,
+      "cf_rank": 21,
+      "places_dropped": 9,
+      "tele": 16,
+      "jury": 137
+    }
+  ],
+  "iceland": [
+    {
+      "year": 2019,
+      "artist": "Hatari",
+      "song": "Hatri\u00f0 mun sigra",
+      "actual_rank": 10,
+      "cf_rank": 6,
+      "place_change": 4
+    },
+    {
+      "year": 2021,
+      "artist": "Da\u00f0i & Gagnamagni\u00f0",
+      "song": "10 Years",
+      "actual_rank": 4,
+      "cf_rank": 5,
+      "place_change": -1
+    },
+    {
+      "year": 2022,
+      "artist": "Systur",
+      "song": "Me\u00f0 h\u00e6kkandi s\u00f3l",
+      "actual_rank": 23,
+      "cf_rank": 18,
+      "place_change": 5
+    },
+    {
+      "year": 2025,
+      "artist": "V\u00e6b",
+      "song": "R\u00f3a",
+      "actual_rank": 25,
+      "cf_rank": 17,
+      "place_change": 8
+    }
+  ]
+}

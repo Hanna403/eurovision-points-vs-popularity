@@ -1,0 +1,386 @@
+[
+  {
+    "country": "Australia",
+    "iso3": "AUS",
+    "out_avg": 10.14,
+    "out_n": 7,
+    "in_avg": 9.5,
+    "in_n": 4
+  },
+  {
+    "country": "Sweden",
+    "iso3": "SWE",
+    "out_avg": 9.11,
+    "out_n": 35,
+    "in_avg": 5.15,
+    "in_n": 27
+  },
+  {
+    "country": "Denmark",
+    "iso3": "DNK",
+    "out_avg": 7.8,
+    "out_n": 25,
+    "in_avg": 5.88,
+    "in_n": 24
+  },
+  {
+    "country": "Czechia",
+    "iso3": "CZE",
+    "out_avg": 6.4,
+    "out_n": 5,
+    "in_avg": 4.5,
+    "in_n": 6
+  },
+  {
+    "country": "Norway",
+    "iso3": "NOR",
+    "out_avg": 6.36,
+    "out_n": 33,
+    "in_avg": 4.67,
+    "in_n": 27
+  },
+  {
+    "country": "Yugoslavia",
+    "iso3": "YUG",
+    "out_avg": 6.33,
+    "out_n": 6,
+    "in_avg": 0.0,
+    "in_n": 6
+  },
+  {
+    "country": "Finland",
+    "iso3": "FIN",
+    "out_avg": 5.57,
+    "out_n": 23,
+    "in_avg": 4.05,
+    "in_n": 22
+  },
+  {
+    "country": "Switzerland",
+    "iso3": "CHE",
+    "out_avg": 5.05,
+    "out_n": 21,
+    "in_avg": 1.74,
+    "in_n": 23
+  },
+  {
+    "country": "Netherlands",
+    "iso3": "NLD",
+    "out_avg": 4.74,
+    "out_n": 23,
+    "in_avg": 2.76,
+    "in_n": 25
+  },
+  {
+    "country": "Estonia",
+    "iso3": "EST",
+    "out_avg": 4.61,
+    "out_n": 18,
+    "in_avg": 4.05,
+    "in_n": 19
+  },
+  {
+    "country": "Poland",
+    "iso3": "POL",
+    "out_avg": 4.12,
+    "out_n": 16,
+    "in_avg": 2.71,
+    "in_n": 17
+  },
+  {
+    "country": "France",
+    "iso3": "FRA",
+    "out_avg": 3.83,
+    "out_n": 36,
+    "in_avg": 1.07,
+    "in_n": 27
+  },
+  {
+    "country": "Ukraine",
+    "iso3": "UKR",
+    "out_avg": 3.75,
+    "out_n": 20,
+    "in_avg": 1.83,
+    "in_n": 12
+  },
+  {
+    "country": "Austria",
+    "iso3": "AUT",
+    "out_avg": 3.71,
+    "out_n": 24,
+    "in_avg": 2.48,
+    "in_n": 23
+  },
+  {
+    "country": "Portugal",
+    "iso3": "PRT",
+    "out_avg": 3.62,
+    "out_n": 24,
+    "in_avg": 2.64,
+    "in_n": 25
+  },
+  {
+    "country": "Bulgaria",
+    "iso3": "BGR",
+    "out_avg": 3.6,
+    "out_n": 5,
+    "in_avg": 0.62,
+    "in_n": 8
+  },
+  {
+    "country": "Hungary",
+    "iso3": "HUN",
+    "out_avg": 3.54,
+    "out_n": 13,
+    "in_avg": 4.8,
+    "in_n": 10
+  },
+  {
+    "country": "Italy",
+    "iso3": "ITA",
+    "out_avg": 3.19,
+    "out_n": 21,
+    "in_avg": 3.07,
+    "in_n": 15
+  },
+  {
+    "country": "Croatia",
+    "iso3": "HRV",
+    "out_avg": 3.06,
+    "out_n": 18,
+    "in_avg": 1.6,
+    "in_n": 20
+  },
+  {
+    "country": "Belgium",
+    "iso3": "BEL",
+    "out_avg": 2.9,
+    "out_n": 21,
+    "in_avg": 2.0,
+    "in_n": 24
+  },
+  {
+    "country": "Russia",
+    "iso3": "RUS",
+    "out_avg": 2.67,
+    "out_n": 21,
+    "in_avg": 1.25,
+    "in_n": 16
+  },
+  {
+    "country": "Ireland",
+    "iso3": "IRL",
+    "out_avg": 2.5,
+    "out_n": 24,
+    "in_avg": 2.63,
+    "in_n": 27
+  },
+  {
+    "country": "Israel",
+    "iso3": "ISR",
+    "out_avg": 2.42,
+    "out_n": 26,
+    "in_avg": 1.5,
+    "in_n": 24
+  },
+  {
+    "country": "Cyprus",
+    "iso3": "CYP",
+    "out_avg": 2.36,
+    "out_n": 25,
+    "in_avg": 1.21,
+    "in_n": 24
+  },
+  {
+    "country": "Germany",
+    "iso3": "DEU",
+    "out_avg": 2.34,
+    "out_n": 35,
+    "in_avg": 2.38,
+    "in_n": 26
+  },
+  {
+    "country": "Latvia",
+    "iso3": "LVA",
+    "out_avg": 2.18,
+    "out_n": 11,
+    "in_avg": 2.8,
+    "in_n": 15
+  },
+  {
+    "country": "United Kingdom",
+    "iso3": "GBR",
+    "out_avg": 2.11,
+    "out_n": 36,
+    "in_avg": 3.26,
+    "in_n": 27
+  },
+  {
+    "country": "Azerbaijan",
+    "iso3": "AZE",
+    "out_avg": 1.85,
+    "out_n": 13,
+    "in_avg": 0.0,
+    "in_n": 11
+  },
+  {
+    "country": "Albania",
+    "iso3": "ALB",
+    "out_avg": 1.75,
+    "out_n": 12,
+    "in_avg": 0.5,
+    "in_n": 12
+  },
+  {
+    "country": "Moldova",
+    "iso3": "MDA",
+    "out_avg": 1.54,
+    "out_n": 13,
+    "in_avg": 0.9,
+    "in_n": 10
+  },
+  {
+    "country": "Lithuania",
+    "iso3": "LTU",
+    "out_avg": 1.53,
+    "out_n": 17,
+    "in_avg": 2.67,
+    "in_n": 15
+  },
+  {
+    "country": "Romania",
+    "iso3": "ROU",
+    "out_avg": 1.35,
+    "out_n": 17,
+    "in_avg": 1.07,
+    "in_n": 14
+  },
+  {
+    "country": "Greece",
+    "iso3": "GRC",
+    "out_avg": 1.33,
+    "out_n": 30,
+    "in_avg": 1.17,
+    "in_n": 24
+  },
+  {
+    "country": "Malta",
+    "iso3": "MLT",
+    "out_avg": 1.27,
+    "out_n": 22,
+    "in_avg": 2.26,
+    "in_n": 23
+  },
+  {
+    "country": "Serbia",
+    "iso3": "SRB",
+    "out_avg": 1.23,
+    "out_n": 13,
+    "in_avg": 1.7,
+    "in_n": 10
+  },
+  {
+    "country": "North Macedonia",
+    "iso3": "MKD",
+    "out_avg": 1.14,
+    "out_n": 7,
+    "in_avg": 0.67,
+    "in_n": 12
+  },
+  {
+    "country": "Luxembourg",
+    "iso3": "LUX",
+    "out_avg": 1.0,
+    "out_n": 9,
+    "in_avg": 0.62,
+    "in_n": 8
+  },
+  {
+    "country": "Armenia",
+    "iso3": "ARM",
+    "out_avg": 0.93,
+    "out_n": 14,
+    "in_avg": 0.89,
+    "in_n": 9
+  },
+  {
+    "country": "Slovenia",
+    "iso3": "SVN",
+    "out_avg": 0.87,
+    "out_n": 15,
+    "in_avg": 2.63,
+    "in_n": 19
+  },
+  {
+    "country": "Spain",
+    "iso3": "ESP",
+    "out_avg": 0.86,
+    "out_n": 36,
+    "in_avg": 2.33,
+    "in_n": 27
+  },
+  {
+    "country": "Turkey",
+    "iso3": "TUR",
+    "out_avg": 0.86,
+    "out_n": 22,
+    "in_avg": 1.1,
+    "in_n": 20
+  },
+  {
+    "country": "Belarus",
+    "iso3": "BLR",
+    "out_avg": 0.67,
+    "out_n": 6,
+    "in_avg": 1.22,
+    "in_n": 9
+  },
+  {
+    "country": "Bosnia & Herzegovina",
+    "iso3": "BIH",
+    "out_avg": 0.47,
+    "out_n": 17,
+    "in_avg": 0.07,
+    "in_n": 14
+  },
+  {
+    "country": "Georgia",
+    "iso3": "GEO",
+    "out_avg": 0.25,
+    "out_n": 8,
+    "in_avg": 1.0,
+    "in_n": 10
+  },
+  {
+    "country": "San Marino",
+    "iso3": "SMR",
+    "out_avg": 0.25,
+    "out_n": 4,
+    "in_avg": 1.78,
+    "in_n": 9
+  },
+  {
+    "country": "Andorra",
+    "iso3": "AND",
+    "out_avg": null,
+    "out_n": 0,
+    "in_avg": 2.67,
+    "in_n": 3
+  },
+  {
+    "country": "Montenegro",
+    "iso3": "MNE",
+    "out_avg": 0.0,
+    "out_n": 2,
+    "in_avg": 0.88,
+    "in_n": 8
+  },
+  {
+    "country": "Slovakia",
+    "iso3": "SVK",
+    "out_avg": 0.0,
+    "out_n": 2,
+    "in_avg": 2.0,
+    "in_n": 6
+  }
+]

@@ -1,0 +1,174 @@
+{
+  "iceland_to_others": [
+    {
+      "country": "Australia",
+      "avg": 10.14,
+      "total": 71,
+      "appearances": 7,
+      "is_nordic": false
+    },
+    {
+      "country": "Sweden",
+      "avg": 9.11,
+      "total": 319,
+      "appearances": 35,
+      "is_nordic": true
+    },
+    {
+      "country": "Denmark",
+      "avg": 7.8,
+      "total": 195,
+      "appearances": 25,
+      "is_nordic": true
+    },
+    {
+      "country": "Czechia",
+      "avg": 6.4,
+      "total": 32,
+      "appearances": 5,
+      "is_nordic": false
+    },
+    {
+      "country": "Norway",
+      "avg": 6.36,
+      "total": 210,
+      "appearances": 33,
+      "is_nordic": true
+    },
+    {
+      "country": "Yugoslavia",
+      "avg": 6.33,
+      "total": 38,
+      "appearances": 6,
+      "is_nordic": false
+    },
+    {
+      "country": "Finland",
+      "avg": 5.57,
+      "total": 128,
+      "appearances": 23,
+      "is_nordic": true
+    },
+    {
+      "country": "Switzerland",
+      "avg": 5.05,
+      "total": 106,
+      "appearances": 21,
+      "is_nordic": false
+    },
+    {
+      "country": "Netherlands",
+      "avg": 4.74,
+      "total": 109,
+      "appearances": 23,
+      "is_nordic": false
+    },
+    {
+      "country": "Estonia",
+      "avg": 4.61,
+      "total": 83,
+      "appearances": 18,
+      "is_nordic": false
+    },
+    {
+      "country": "Poland",
+      "avg": 4.12,
+      "total": 66,
+      "appearances": 16,
+      "is_nordic": false
+    },
+    {
+      "country": "France",
+      "avg": 3.83,
+      "total": 138,
+      "appearances": 36,
+      "is_nordic": false
+    }
+  ],
+  "others_to_iceland": [
+    {
+      "country": "Australia",
+      "avg": 9.5,
+      "total": 38,
+      "appearances": 4,
+      "is_nordic": false
+    },
+    {
+      "country": "Denmark",
+      "avg": 5.88,
+      "total": 141,
+      "appearances": 24,
+      "is_nordic": true
+    },
+    {
+      "country": "Sweden",
+      "avg": 5.15,
+      "total": 139,
+      "appearances": 27,
+      "is_nordic": true
+    },
+    {
+      "country": "Monaco",
+      "avg": 5.0,
+      "total": 5,
+      "appearances": 1,
+      "is_nordic": false
+    },
+    {
+      "country": "Hungary",
+      "avg": 4.8,
+      "total": 48,
+      "appearances": 10,
+      "is_nordic": false
+    },
+    {
+      "country": "Norway",
+      "avg": 4.67,
+      "total": 126,
+      "appearances": 27,
+      "is_nordic": true
+    },
+    {
+      "country": "Czechia",
+      "avg": 4.5,
+      "total": 27,
+      "appearances": 6,
+      "is_nordic": false
+    },
+    {
+      "country": "Estonia",
+      "avg": 4.05,
+      "total": 77,
+      "appearances": 19,
+      "is_nordic": false
+    },
+    {
+      "country": "Finland",
+      "avg": 4.05,
+      "total": 89,
+      "appearances": 22,
+      "is_nordic": true
+    },
+    {
+      "country": "United Kingdom",
+      "avg": 3.26,
+      "total": 88,
+      "appearances": 27,
+      "is_nordic": false
+    },
+    {
+      "country": "Italy",
+      "avg": 3.07,
+      "total": 46,
+      "appearances": 15,
+      "is_nordic": false
+    },
+    {
+      "country": "Latvia",
+      "avg": 2.8,
+      "total": 42,
+      "appearances": 15,
+      "is_nordic": false
+    }
+  ]
+}

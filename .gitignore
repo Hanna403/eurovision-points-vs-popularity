@@ -1,0 +1,17 @@
+# Never commit secrets
+.env
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Build / cache folders
+.cache/
+.ipynb_checkpoints/
+
+# Personal deployment notes (not part of the deliverable)
+DEPLOY.md

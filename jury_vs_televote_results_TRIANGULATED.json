@@ -1,0 +1,45 @@
+{
+  "n_finalists": 229,
+  "jury_vs_yt": {
+    "r": 0.3934,
+    "ci_low": 0.2588,
+    "ci_high": 0.5167
+  },
+  "tele_vs_yt": {
+    "r": 0.6796,
+    "ci_low": 0.5897,
+    "ci_high": 0.7575
+  },
+  "steiger_yt": {
+    "z": 5.4311,
+    "p": 5.6e-08
+  },
+  "jury_vs_play": {
+    "r": 0.2722,
+    "ci_low": 0.1606,
+    "ci_high": 0.38
+  },
+  "tele_vs_play": {
+    "r": 0.1874,
+    "ci_low": 0.0539,
+    "ci_high": 0.3238
+  },
+  "steiger_play": {
+    "z": -1.3088,
+    "p": 0.1906
+  },
+  "jury_vs_list": {
+    "r": 0.2621,
+    "ci_low": 0.1456,
+    "ci_high": 0.368
+  },
+  "tele_vs_list": {
+    "r": 0.1695,
+    "ci_low": 0.0371,
+    "ci_high": 0.3011
+  },
+  "steiger_list": {
+    "z": -1.4216,
+    "p": 0.1551
+  }
+}
