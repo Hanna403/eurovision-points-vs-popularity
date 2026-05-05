@@ -6,7 +6,7 @@ A 70-year look at whether the Eurovision Song Contest's scoreboard predicts real
 **Course:** 02806 Social Data Analysis & Visualization · DTU · Spring 2026
 
 🌐 **[View the website →](https://hanna403.github.io/eurovision-points-vs-popularity/website/)**
-📓 **[View the explainer notebook →](https://github.com/Hanna403/eurovision-points-vs-popularity/blob/main/Assignment_B_Explainer.ipynb)**
+📓 **[View the explainer notebook →](https://hanna403.github.io/eurovision-points-vs-popularity/Assignment_B_Explainer.html)**
 
 ---
 
