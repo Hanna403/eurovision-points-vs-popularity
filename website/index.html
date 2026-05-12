@@ -859,13 +859,12 @@ buildPlot();
  marker: {
  size: plotData.map(s => 6 + Math.log10(s.yt_views) * 3),
  color: plotData.map(s => Math.log10(s.yt_views)),
- cmin: 2.5, cmax: 7,
  colorscale: [[0, "#D6E0F2"], [1, MAGENTA]],
  showscale: true,
  colorbar: {
  title: { text: "YouTube views", font: { size: 11 } },
- tickvals: [3, 4, 5, 6, 7],
- ticktext: ["1K", "10K", "100K", "1M", "10M"],
+ tickvals: [3, 4, 5, 6],
+ ticktext: ["1K", "10K", "100K", "1M"],
  thickness: 12, len: 0.5,
  },
  line: { color: "white", width: 1.2 },
