@@ -859,6 +859,7 @@ buildPlot();
  marker: {
  size: plotData.map(s => 6 + Math.log10(s.yt_views) * 3),
  color: plotData.map(s => Math.log10(s.yt_views)),
+ cmin: 2.5, cmax: 7,
  colorscale: [[0, "#D6E0F2"], [1, MAGENTA]],
  showscale: true,
  colorbar: {
