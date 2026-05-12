@@ -344,7 +344,7 @@
  Eurovision crowned <em>Run Away</em> the 22nd-best song of 2010. The world played it 45 million times. ABBA's <em>Waterloo</em> won in 1974 with 24 points, out of a theoretical maximum of 160, defining a generation of pop music with the lowest winning total in Eurovision history.
  </p>
  <p>
- <em>(In 1974 each country had ten jurors. Each juror cast one vote for their favourite song from another country. With sixteen <em>other</em> countries voting on any given song, the ceiling was 160 points; the actual winning range that year was 3 to 24. Compare to 2023, when Loreen's <em>Tattoo</em> won with 583 points out of a theoretical maximum of 900.)</em>
+ <em>(In 1974 each country had ten jurors. Each juror cast one vote for their favourite song from another country. With sixteen</em> <strong>other</strong> <em>countries voting on any given song, the ceiling was 160 points; the actual winning range that year was 3 to 24. Compare to 2023, when Loreen's</em> Tattoo <em>won with 583 points out of a theoretical maximum of 900.)</em>
  </p>
  <p>
  For every famous Eurovision song you can name, there are four jury favourites you've never heard of. <strong>What does this gap actually look like at scale?</strong> We pulled 70 years of contest results, tagged every song with its YouTube view count and Last.fm listen count, and asked: when the jury and the audience disagree, who tends to be right?
@@ -418,7 +418,7 @@
 
 <!-- ========== Scene 4: Interactive scatter ========== -->
 <section class="scene" id="interactive">
- <div class="scene-tag">Scene 4 · The audience vs, the jury</div>
+ <div class="scene-tag">Scene 4 · The audience vs the jury</div>
  <h2>Toggle the scoreboards. Watch the songs reposition.</h2>
  <p>
  Since 2016, Eurovision splits the points: every country awards a full set of jury points and a full set of televote points. That gives us two parallel verdicts on the same song. Toggle below to swap the x-axis between <strong>jury points</strong> and <strong>televote points</strong>. Filter by country to see your own.
@@ -439,8 +439,9 @@
  </div>
  </div>
  <div id="plot" style="width: 100%; height: 540px;"></div>
- <div class="figure-caption">Fig. 1. Interactive: jury vs, televote points, plotted against log YouTube views for every 2016–2025 grand finalist. Hover any dot for the song details. Filter by country to see how your favourite voting bloc sees Eurovision.</div>
+ <div class="figure-caption">Fig. 1. Jury vs televote points plotted against YouTube views (logarithmic scale — equal spacing = 10× more views) for every 2016–2025 grand finalist. The dotted line shows the overall trend. Hover any dot for song details. Filter by country to see your own.</div>
  </div>
+
 </section>
 
 <!-- ========== Scene 5: The triangulated finding ========== -->
@@ -453,7 +454,7 @@
  <img class="fig" src="assets/J_TRIANGULATED.png" alt="Bar chart showing that televote dominates jury for YouTube views but ties with jury for Last.fm signals" />
  <div class="figure-caption">Fig. 2. Pearson correlation of each scoring signal with each popularity signal. Bootstrap 95% CIs, n = 229 finalists.</div>
  <p style="margin-top: 2rem;">
- For <strong>YouTube views</strong>, the televote correlates much more strongly than the jury vote. <strong>r = +0.68 vs +0.39</strong>, and Steiger's Z rejects equality at <strong>p &lt; 10⁻⁷</strong>.
+ For <strong>YouTube views</strong>, the televote correlates much more strongly than the jury vote. <strong>r = +0.68 vs +0.39</strong>, and Steiger's Z rejects equality at <strong>p &lt; 10⁻⁷</strong> — less than a one-in-100-million chance the gap is random.
  </p>
  <p>
  But for <strong>Last.fm playcounts and listeners</strong>, the gap collapses. Jury and televote each correlate at roughly r = +0.20, with no statistically significant difference (p &gt; 0.15).
@@ -464,14 +465,14 @@
 
  <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--navy); margin-top: 3rem; margin-bottom: 0.5rem;">Confirmed in regression form</h3>
  <p>
- To make sure the correlation finding wasn't an artefact of newer videos accumulating views faster, or of voting blocs systematically over-rewarding their neighbours, we fit a series of <strong>ordinary least-squares linear regressions</strong> on all <strong>n = 232 grand finalists</strong>: <code>log(YouTube views)</code> regressed on <em>standardized</em> jury points, televote points, and year, first without country effects, then with one-hot country fixed effects to absorb voting-bloc variance.
+ To make sure the correlation finding wasn't an artefact of voting blocs systematically over-rewarding their neighbours, we built a model that predicts YouTube views from three inputs: jury points, televote points, and year. Year is included because newer videos have had more time to accumulate views. We ran the model twice: once without accounting for which country a song came from, and once with country controls to absorb voting-bloc effects.
  </p>
  <div class="viz-wrap" style="padding: 1rem;">
  <div id="regression-plot" style="width: 100%; height: 400px;"></div>
  </div>
- <div class="figure-caption">Fig. 3. Standardized OLS coefficients (interactive, hover for the bootstrap 95% CIs). Grey bars: baseline model (no country effects). Coloured bars: model with 42 country dummies. Adding country effects pushes R² from 0.53 to 0.65.</div>
+ <div class="figure-caption">Fig. 3. Standardized coefficients: how strongly each input predicts YouTube views (hover for confidence intervals). Year is a control for video age, not a finding. Grey bars: model without country controls. Coloured bars: model with country controls. Adding country controls improves the model's accuracy from 53% to 65%.</div>
  <p style="margin-top: 1rem;">
- Two findings. <strong>First, adding country fixed effects increases R² from 0.53 to 0.65</strong>. voting blocs really do explain about 12% of additional variance in popularity. <strong>Second, the televote coefficient gets <em>larger</em> when we add country effects, not smaller</strong> (β = +0.31 → +0.34). The jury coefficient stays near zero (+0.04 → +0.03). Once we control for which country a song came from, the televote effect is now <strong>10 times larger</strong> than the jury effect, up from 7.3× without country controls.
+ Two findings. <strong>First, adding country controls increases R² from 0.53 to 0.65</strong>, meaning the model's accuracy jumps from 53% to 65%. Voting blocs really do explain about 12% of additional variance in popularity. <strong>Second, the televote coefficient gets <em>larger</em> when we add country controls, not smaller</strong> (β = +0.31 → +0.34). The jury coefficient stays near zero (+0.04 → +0.03). Once we control for which country a song came from, the televote effect is now <strong>10 times larger</strong> than the jury effect, up from 7.3× without country controls.
  </p>
  <p>
  In plain English: <strong>even after we account for the Nordic bloc, the Eastern European bloc, and every other country-level voting pattern, the televote still predicts YouTube popularity an order of magnitude better than the jury vote.</strong> The finding is robust.
@@ -491,7 +492,7 @@
  </div>
  </div>
  <div id="residuals-plot" style="width: 100%; height: 560px;"></div>
- <div class="figure-caption">Fig. 4. Predicted vs actual log YouTube views (interactive, hover any dot for song details, filter by country to find yours). Each dot is a 2016–2025 finalist; the dashed line is perfect prediction. Magenta = empirical Sleeper Hits (top 6 positive residuals); gold = empirical Jury Darlings (top 4 negative residuals).</div>
+ <div class="figure-caption">Fig. 4. Predicted vs actual YouTube views on a logarithmic scale (equal spacing = 10× more views). Each dot is a 2016–2025 finalist; the dashed line is where a perfect prediction would land. Hover any dot for song details, filter by country to find yours. Magenta = Sleeper Hits (songs that got far more views than predicted); gold = Jury Darlings (songs that got far fewer).</div>
  </div>
  <p style="margin-top: 1rem;">
  Some of the names overlap with the hand-built Cinderella scoreboard from earlier (Efendi's <em>Mata Hari</em> 2021, Hurricane's <em>Loco</em> 2021), but the residual plot derives them from the model rather than from a hand-defined score, which is the more rigorous version of the same insight. Robin Bengtsson's 2017 <em>I Can't Go On</em> finished 5th but the model expected <strong>30× more YouTube views</strong> than it actually got. The audience moved on; the jury didn't.
@@ -536,7 +537,7 @@
  <div class="scene-tag">Scene 7 · Voting blocs</div>
  <h2>Eurovision is a map. The points follow the geography.</h2>
  <p>
- One thing every Eurovision viewer notices: <em>countries vote for their neighbours</em>. Sweden hands twelve points to Norway; Greece hands twelve points to Cyprus. We wanted to test whether this folk-wisdom voting bloc is real, and where Iceland sits in it.
+ Beyond the songs themselves, one thing every Eurovision viewer notices: <em>countries vote for their neighbours</em>. Sweden hands twelve points to Norway; Greece hands twelve points to Cyprus. We wanted to test whether this folk-wisdom voting bloc is real, and where Iceland sits in it.
  </p>
  <p>
  We computed, for every country pair across all 38,000+ grand-final votes from 1957–2025, the <strong>average points per appearance</strong> Iceland sends to other countries (left), and the average other countries send to Iceland (right). To avoid small-sample noise, we filtered to country pairs with <strong>at least 15 co-appearances in finals</strong>. enough overlap that any patterns are statistically meaningful, not the result of one or two outlier songs.
@@ -568,7 +569,7 @@
  <li><strong>Estonia and the Netherlands</strong> show up reciprocally too, in the second tier. Estonia's a Baltic neighbour with Nordic cultural affinity; the Netherlands has long-standing musical exchange with Scandinavia.</li>
  </ul>
  <p>
- None of this <em>affects</em> our central jury-vs-televote finding, the bloc effect is too small to swing the n=229 correlation. But it does explain a piece of the unexplained variance. Some of what looks like Iceland's televote tracking "popularity" is partly the bloc giving and receiving its usual neighbourly twelve points.
+ None of this <em>affects</em> our central jury-vs-televote finding; the bloc effect is too small to swing the n=229 correlation. But it does explain a piece of the unexplained variance. Some of what looks like Iceland's televote tracking "popularity" is partly the bloc giving and receiving its usual neighbourly twelve points.
  </p>
  <p>
  <em>(One thing we deliberately excluded: Australia. Iceland and Australia have only co-appeared seven times, but the average points-per-appearance is the highest of any country (10.1). The high number is real, but it rests on a small sample where two of the seven values are zero, including 2018 and 2022, when Australia sent songs Iceland didn't reward at all. Those are the kinds of patterns that disappear with one more contest. We filter them out so the chart shows the robust signal, not the noisy one.)</em>
@@ -580,7 +581,7 @@
  <div class="scene-tag">Scene 8 · The Cinderella scoreboard</div>
  <h2>Songs Eurovision missed, and songs Eurovision oversold.</h2>
  <p>
- Combining z-scored popularity (YouTube + Last.fm) and z-scored placement, we built a <strong>Cinderella Score</strong>: how much more, or less, popular a song became than its Eurovision finish predicted. The two extremes tell two very different stories.
+ Combining standardized popularity (YouTube + Last.fm, scaled so each metric counts equally) and standardized placement, we built a <strong>Cinderella Score</strong>: how much more, or less, popular a song became than its Eurovision finish predicted. The two extremes tell two very different stories.
  </p>
 
  <div class="cinderella-grid">
@@ -621,7 +622,7 @@
  </p>
 
  <img class="fig" src="assets/J_COUNTERFACTUAL.png" alt="Comparison table of actual winners vs televote-only winners 2016-2025" />
- <div class="figure-caption">Fig. 9. Actual winners vs, counterfactual televote-only winners, all nine post-2016 contests. Magenta rows mark years with different winners.</div>
+ <div class="figure-caption">Fig. 9. Actual winners vs counterfactual televote-only winners, all nine post-2016 contests. Magenta rows mark years with different winners.</div>
 
  <p style="margin-top: 2rem;">
  Of the nine contests since the jury–televote split was published separately, <strong>five would have produced different winners under televote-only</strong>:
@@ -705,6 +706,26 @@ const MUTED = "#9AA5B1";
  sel.addEventListener("change", () => buildPlot());
 })();
 
+// ─── Helper: linear regression ──────────────────────────
+function linReg(xs, ys) {
+ const n = xs.length;
+ let sx = 0, sy = 0, sxy = 0, sx2 = 0;
+ for (let i = 0; i < n; i++) {
+ sx += xs[i]; sy += ys[i];
+ sxy += xs[i] * ys[i]; sx2 += xs[i] * xs[i];
+ }
+ const slope = (n * sxy - sx * sy) / (n * sx2 - sx * sx);
+ const intercept = (sy - slope * sx) / n;
+ const yMean = sy / n;
+ let ssTot = 0, ssRes = 0;
+ for (let i = 0; i < n; i++) {
+ ssTot += (ys[i] - yMean) ** 2;
+ ssRes += (ys[i] - (slope * xs[i] + intercept)) ** 2;
+ }
+ const r2 = 1 - ssRes / ssTot;
+ return { slope, intercept, r2 };
+}
+
 // ─── Main interactive scatter (Scene 4) ───────────────────
 let currentX = "jury";
 
@@ -714,7 +735,6 @@ function buildPlot() {
 
  const x = data.map(s => currentX === "jury" ? s.jury : s.tele);
  const y = data.map(s => Math.log10(s.yt_views));
- const sizes = data.map(s => 8 + Math.min(40, Math.log10(s.yt_views) * 2));
  const text = data.map(s =>
  `<b>${s.artist}</b>. <i>${s.song}</i><br>` +
  `${s.country} · ${s.year} · place ${s.place}<br>` +
@@ -730,11 +750,24 @@ function buildPlot() {
  text,
  hoverinfo: "text",
  marker: {
- size: sizes,
+ size: 9,
  color: currentX === "jury" ? INK : MAGENTA,
  line: { color: "white", width: 1 },
  opacity: 0.78,
  },
+ showlegend: false,
+ };
+
+ // Trendline
+ const reg = linReg(x, y);
+ const xLine = [0, 450];
+ const yLine = xLine.map(v => reg.slope * v + reg.intercept);
+ const trendTrace = {
+ x: xLine, y: yLine,
+ mode: "lines", type: "scatter",
+ line: { color: currentX === "jury" ? INK : MAGENTA, width: 2.5, dash: "dot" },
+ hoverinfo: "skip",
+ showlegend: false,
  };
 
  // Annotate three biggest disagreements (in current view)
@@ -759,10 +792,14 @@ function buildPlot() {
  xaxis: {
  title: { text: currentX === "jury" ? "Jury points" : "Televote points", font: { size: 13 } },
  gridcolor: "#EEE",
+ range: [0, 450],
+ dtick: 50,
  },
  yaxis: {
- title: { text: "log₁₀(YouTube views)", font: { size: 13 } },
+ title: { text: "YouTube views", font: { size: 13 } },
  gridcolor: "#EEE",
+ tickvals: [3, 4, 5, 6, 7, 8, 9],
+ ticktext: ["1K", "10K", "100K", "1M", "10M", "100M", "1B"],
  },
  margin: { l: 60, r: 30, t: 20, b: 60 },
  plot_bgcolor: "#FAFBFD",
@@ -771,7 +808,7 @@ function buildPlot() {
  hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
  };
 
- Plotly.newPlot("plot", [trace], layout, { displayModeBar: false, responsive: true });
+ Plotly.newPlot("plot", [trace, trendTrace], layout, { displayModeBar: false, responsive: true });
 }
 
 document.querySelectorAll("#x-toggle button").forEach(btn => {
@@ -825,7 +862,9 @@ buildPlot();
  colorscale: [[0, "#D6E0F2"], [1, MAGENTA]],
  showscale: true,
  colorbar: {
- title: { text: "log views", font: { size: 11 } },
+ title: { text: "YouTube views", font: { size: 11 } },
+ tickvals: [3, 4, 5, 6, 7],
+ ticktext: ["1K", "10K", "100K", "1M", "10M"],
  thickness: 12, len: 0.5,
  },
  line: { color: "white", width: 1.2 },
@@ -848,7 +887,7 @@ buildPlot();
 (function () {
  const m1 = REGRESSION.model_1_no_FE;
  const m2 = REGRESSION.model_2_with_FE;
- const labels = ["Jury vote", "Televote", "Year"];
+ const labels = ["Jury vote", "Televote", "Year (control)"];
  const m1_vals = [m1.jury_z, m1.tele_z, m1.year_z];
  const m2_vals = [m2.jury_z, m2.tele_z, m2.year_z];
  const m1_err = {
@@ -862,7 +901,7 @@ buildPlot();
 
  const trace1 = {
  x: labels, y: m1_vals,
- type: "bar", name: "No country FE",
+ type: "bar", name: "Without country controls",
  marker: { color: MUTED },
  error_y: { ...m1_err, type: "data", symmetric: false, color: "#666", thickness: 1.2 },
  text: m1_vals.map(v => `β = ${v >= 0 ? "+" : ""}${v.toFixed(3)}`),
@@ -870,7 +909,7 @@ buildPlot();
  hovertemplate: "<b>%{x}</b><br>" +
  "β = %{y:.3f}<br>" +
  "95%% CI: [%{customdata[0]:.3f}, %{customdata[1]:.3f}]" +
- "<extra>No country FE</extra>",
+ "<extra>Without country controls</extra>",
  customdata: [
  [m1.ci.jury_lo, m1.ci.jury_hi],
  [m1.ci.tele_lo, m1.ci.tele_hi],
@@ -879,7 +918,7 @@ buildPlot();
  };
  const trace2 = {
  x: labels, y: m2_vals,
- type: "bar", name: "WITH country FE",
+ type: "bar", name: "With country controls",
  marker: { color: [INK, MAGENTA, GOLD] },
  error_y: { ...m2_err, type: "data", symmetric: false, color: "#444", thickness: 1.2 },
  text: m2_vals.map(v => `β = ${v >= 0 ? "+" : ""}${v.toFixed(3)}`),
@@ -887,7 +926,7 @@ buildPlot();
  hovertemplate: "<b>%{x}</b><br>" +
  "β = %{y:.3f}<br>" +
  "95%% CI: [%{customdata[0]:.3f}, %{customdata[1]:.3f}]" +
- "<extra>WITH country fixed effects</extra>",
+ "<extra>With country controls</extra>",
  customdata: [
  [m2.ci.jury_lo, m2.ci.jury_hi],
  [m2.ci.tele_lo, m2.ci.tele_hi],
@@ -898,7 +937,7 @@ buildPlot();
  const layout = {
  barmode: "group",
  yaxis: {
- title: { text: "Standardized OLS coefficient", font: { size: 12 } },
+ title: { text: "Standardized coefficient", font: { size: 12 } },
  gridcolor: "#EEE", zeroline: true, zerolinecolor: "#888",
  },
  xaxis: { title: "" },
@@ -998,10 +1037,14 @@ function buildResidualsPlot() {
  });
 
  const layout = {
- xaxis: { title: { text: "Predicted log₁₀(YouTube views). from votes + year + country", font: { size: 12 } },
- gridcolor: "#EEE", range: [lo, hi] },
- yaxis: { title: { text: "Actual log₁₀(YouTube views)", font: { size: 12 } },
- gridcolor: "#EEE", range: [lo, hi] },
+ xaxis: { title: { text: "Predicted YouTube views (from votes + year + country)", font: { size: 12 } },
+ gridcolor: "#EEE", range: [lo, hi],
+ tickvals: [3, 4, 5, 6, 7, 8, 9],
+ ticktext: ["1K", "10K", "100K", "1M", "10M", "100M", "1B"] },
+ yaxis: { title: { text: "Actual YouTube views", font: { size: 12 } },
+ gridcolor: "#EEE", range: [lo, hi],
+ tickvals: [3, 4, 5, 6, 7, 8, 9],
+ ticktext: ["1K", "10K", "100K", "1M", "10M", "100M", "1B"] },
  margin: { l: 65, r: 30, t: 20, b: 60 },
  plot_bgcolor: "#FAFBFD", paper_bgcolor: "#FAFBFD",
  hoverlabel: { bgcolor: "white", bordercolor: "#888", font: { family: "Inter" } },
